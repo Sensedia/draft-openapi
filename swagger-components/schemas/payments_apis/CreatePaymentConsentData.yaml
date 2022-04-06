@@ -1,0 +1,27 @@
+type: object
+description: Objeto contendo as informações de consentimento para a iniciação de pagamento individual.
+required:
+  - loggedUser
+  - creditor
+  - payment
+properties:
+  loggedUser:
+    $ref: ./LoggedUser.yaml
+  businessEntity:
+    $ref: ./BusinessEntity.yaml
+  creditor:
+    $ref: ../payments_apis/PaymentIdentification.yaml
+  debtorAccount:
+    $ref: ../business_commons/DebtorAccount.yaml
+  payment:
+    oneOf:
+      - $ref: PixPaymentConsent.yaml
+      - $ref: TedPaymentConsent.yaml
+      - $ref: TefPaymentConsent.yaml
+    discriminator:
+      propertyName: type
+      mapping:
+        PIX: PixPaymentConsent.yaml
+        TED: TedPaymentConsent.yaml
+        TEF: TefPaymentConsent.yaml
+additionalProperties: false
