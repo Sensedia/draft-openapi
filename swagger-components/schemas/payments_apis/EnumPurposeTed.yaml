@@ -98,6 +98,7 @@ enum:
   - 9
   - 97
   - 99999
+  - 11111
 example: 1
 description: |
   Para o caso de TED o campo é obrigatório, para o caso de TEF não. É responsabilidade da iniciadora desenvolver esse condicionante de modo a garantir a usabilidade especificada pelo GT UX.
