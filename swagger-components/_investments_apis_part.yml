@@ -159,7 +159,9 @@ components:
     NoIdentificationFrequencyDistribution:
       $ref: ./schemas/business_commons/NoIdentificationFrequencyDistribution.yaml
     DistributionFrequencyPrice:
-      $ref: ./schemas/business_commons/FrequencyDistributionPrice.yaml
+      $ref: ./schemas/business_commons/InvestmentFrequencyDistributionPrice.yaml
+    EnumDistinctTargetAudience:
+     $ref: ./schemas/business_commons/EnumDistinctTargetAudience.yaml
     InvestmentsFixedIncomeBank:
       $ref: ./schemas/investments_apis/InvestmentsFixedIncomeBank.yaml
     InvestmentsFixedIncomeBankIndex:
@@ -172,8 +174,6 @@ components:
       $ref: ./schemas/investments_apis/InvestmentsFixedIncomeCredit.yaml
     InvestmentsFund:
       $ref: ./schemas/investments_apis/InvestmentsFund.yaml
-    InvestmentsFundEnumExpirationGracePeriod:
-      $ref: ./schemas/investments_apis/EnumExpirationGracePeriod.yaml
     InvestmentsFundAdmin:
       $ref: ./schemas/investments_apis/Admin.yaml
     InvestmentsFundFundManager:

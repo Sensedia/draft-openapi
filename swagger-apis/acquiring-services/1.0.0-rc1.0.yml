@@ -95,7 +95,7 @@ paths:
                             cnpjNumber:
                               type: string
                               description: 'O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.'
-                              pattern: '\d{14}$'
+                              pattern: '^\d{14}$'
                               example: '13456789000112'
                             urlComplementaryList:
                               type: string
@@ -599,7 +599,7 @@ paths:
                             cnpjNumber:
                               type: string
                               description: 'O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.'
-                              pattern: '\d{14}$'
+                              pattern: '^\d{14}$'
                               example: '13456789000112'
                             urlComplementaryList:
                               type: string
@@ -1075,7 +1075,7 @@ components:
                   cnpjNumber:
                     type: string
                     description: 'O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.'
-                    pattern: '\d{14}$'
+                    pattern: '^\d{14}$'
                     example: '13456789000112'
                   urlComplementaryList:
                     type: string
@@ -1313,7 +1313,7 @@ components:
         cnpjNumber:
           type: string
           description: 'O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.'
-          pattern: '\d{14}$'
+          pattern: '^\d{14}$'
           example: '13456789000112'
         urlComplementaryList:
           type: string
@@ -1414,7 +1414,7 @@ components:
             cnpjNumber:
               type: string
               description: 'O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.'
-              pattern: '\d{14}$'
+              pattern: '^\d{14}$'
               example: '13456789000112'
             urlComplementaryList:
               type: string
@@ -1577,7 +1577,7 @@ components:
                         cnpjNumber:
                           type: string
                           description: 'O CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara.'
-                          pattern: '\d{14}$'
+                          pattern: '^\d{14}$'
                           example: '13456789000112'
                         urlComplementaryList:
                           type: string
