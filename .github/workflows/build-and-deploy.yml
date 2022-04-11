@@ -54,7 +54,7 @@ jobs:
            "${{ steps.githubData.outputs.git_commit_message }}"
 
       # Run Spectral
-      - uses: stoplightio/spectral-action@v0.8.0
+      - uses: stoplightio/spectral-action@v0.8.1
         with:
           file_glob: 'swagger-apis/**/*.yml'
   deploy:
