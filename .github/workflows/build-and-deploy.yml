@@ -57,16 +57,16 @@ jobs:
       # - uses: stoplightio/spectral-action@v0.7.0
       #   with:
       #     file_glob: 'swagger-apis/**/*.yml'
-  deploy:
-    env:
-       enable-deploy: ${{ (github.repository !=  'Sensedia/draft-openapi' && github.ref_name == 'main')}}
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy
-        if: env.enable-deploy == 'true'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
+  #deploy:
+  #  env:
+  #     enable-deploy: ${{ (github.repository !=  'Sensedia/draft-openapi' && github.ref_name == 'main')}}
+  #  needs: build
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: Deploy
+  #      if: env.enable-deploy == 'true'
+  #      uses: peaceiris/actions-gh-pages@v3
+  #      with:
+   #       github_token: ${{ secrets.GITHUB_TOKEN }}
+   #       publish_dir: .
         
