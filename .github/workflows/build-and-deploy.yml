@@ -34,14 +34,12 @@ jobs:
       - name: Compile Swagger Files and generate dictionaries
         run: |
           bash ./automation-scripts/build.sh
-
       - name: Set Github user data
         id: githubData
         run: |
           echo "::set-output name=git_user_name::$(git --no-pager log --format=format:'%an' -n 1)"
           echo "::set-output name=git_user_email::$(git --no-pager log --format=format:'%ae' -n 1)"
           echo "::set-output name=git_commit_message::$(git --no-pager log --format=format:'%B' -n 1)" 
-
       - name: Sensedia/openapi Integration
         if: ${{ env.enable-openapi-integration }}
         run: |
@@ -52,7 +50,6 @@ jobs:
            "${{ github.ref_name }}"\
            "openapi"\
            "${{ steps.githubData.outputs.git_commit_message }}"
-
       # Run Spectral
       #- uses: stoplightio/spectral-action@v0.7.0
        #  with:
@@ -69,4 +66,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
-        
