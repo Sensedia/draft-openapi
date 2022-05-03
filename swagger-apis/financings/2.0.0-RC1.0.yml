@@ -88,6 +88,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseFinancingsContractList'
       security:
         - OpenId:
             - openid
@@ -129,6 +131,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseFinancingsContract'
       security:
         - OpenId:
             - openid
@@ -172,6 +176,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseFinancingsWarranties'
       security:
         - OpenId:
             - openid
@@ -215,6 +221,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseFinancingsInstalments'
       security:
         - OpenId:
             - openid
@@ -258,6 +266,8 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/OKResponseFinancingsPayments'
       security:
         - OpenId:
             - openid
@@ -811,7 +821,7 @@ components:
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           maxLength: 21
           minLength: 4
-          example: 100000.04
+          example: '100000.0400'
         feeRate:
           type: string
           maxLength: 6
@@ -865,6 +875,7 @@ components:
           $ref: '#/components/schemas/EnumContractFinanceChargeType'
         chargeAdditionalInfo:
           type: string
+          maxLength: 250
           description: |
             Campo de preenchimento obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
             [Restrição] Obrigatório se selecionada a opção 'OUTROS' em Tipo de encargo pactuado no contrato.
@@ -874,7 +885,6 @@ components:
           type: number
           description: |
             Representa o valor do encargo em percentual pactuado no contrato. Exemplo: 0.0210 (=2.1%).
-          maxLength: 19
           example: 0.07
       additionalProperties: false
     FinancingsInstalments:
