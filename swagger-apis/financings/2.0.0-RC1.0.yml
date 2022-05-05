@@ -546,7 +546,7 @@ components:
           description: Valor monetário da parcela não regular a vencer. Expresso em valor monetário com 4 casas decimais.
           type: string
           pattern: '^\d{1,15}\.\d{2,4}$'
-          maxLength: 21
+          maxLength: 20
           minLength: 4
           example: '100000.0400'
         currency:
@@ -577,7 +577,7 @@ components:
           description: Valor do pagamento do encargo pago fora da parcela. Expresso em valor monetário com até 4 casas decimais.
           type: string
           pattern: '^\d{1,15}\.\d{2,4}$'
-          maxLength: 21
+          maxLength: 20
           minLength: 4
           example: '100000.0400'
       additionalProperties: false
@@ -671,7 +671,7 @@ components:
           description: Valor contratado da operação. Expresso em valor monetário com até 4 casas decimais
           type: string
           minLength: 4
-          maxLength: 21
+          maxLength: 20
           pattern: '^\d{1,15}\.\d{2,4}$'
           example: '100000.0400'
         currency:
@@ -861,7 +861,7 @@ components:
         feeAmount:
           type: string
           pattern: '^\d{1,15}\.\d{2,4}$'
-          maxLength: 21
+          maxLength: 20
           minLength: 4
           example: '100000.0400'
           description: |
@@ -1043,7 +1043,7 @@ components:
           description: Valor necessario para o cliente liquidar a dívida.
           type: string
           pattern: '^\d{1,15}\.\d{2,4}$'
-          maxLength: 21
+          maxLength: 20
           minLength: 4
           example: '100000.0400'
         releases:
@@ -1097,7 +1097,7 @@ components:
         paidAmount:
           type: string
           pattern: '^\d{1,15}\.\d{2,4}$'
-          maxLength: 21
+          maxLength: 20
           minLength: 4
           example: '100000.0400'
           description: |
@@ -1200,7 +1200,7 @@ components:
           example: NOTAS_PROMISSORIAS_OUTROS_DIREITOS_CREDITO
         warrantyAmount:
           type: string
-          maxLength: 21
+          maxLength: 20
           minLength: 4
           pattern: '^\d{1,15}\.\d{2,4}$'
           example: '200.0001'
