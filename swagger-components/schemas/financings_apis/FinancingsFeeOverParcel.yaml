@@ -22,7 +22,7 @@ properties:
       [Restrição] Caso a instituição não possua a informação para compartilhamento, informar NA.
   feeAmount:
     type: string
-    pattern: '^-?\d{1,15}\.\d{2,4}$'
+    pattern: '^\d{1,15}\.\d{2,4}$'
     maxLength: 21
     minLength: 4
     example: '100000.0400'
