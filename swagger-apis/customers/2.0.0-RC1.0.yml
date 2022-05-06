@@ -1563,6 +1563,8 @@ components:
     PersonalDocument:
       type: object
       description: Objeto agrupador de informações relativas a Documentos da pessoa natural
+      required:
+        - documentType
       properties:
         documentType:
           $ref: '#/components/schemas/EnumPersonalDocumentType'

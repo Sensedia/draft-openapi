@@ -24,9 +24,9 @@ NAO_DISPONIVEL";1;1;"";Não permitido;string;FEMININO
 /data/companyCnpj;companyCnpj;"Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. 
 Deve-se ter apenas os números do CNPJ, sem máscara";Lista;14;Obrigatório;^\d{14}$;;1;N;"";Não permitido;array;
 /data/documents;documents;Objeto agrupador de informações relativas a Documentos da pessoa natural;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;
-/data/documents/documentType;documentType;Selecionar o tipo de documento que será informado.;Texto;;Opcional;;"CPF 
+/data/documents/documentType;documentType;Selecionar o tipo de documento que será informado.;Texto;;Obrigatório;;"CPF 
 PASSAPORTE 
-AMBOS";0;1;"";Não permitido;string;AMBOS
+AMBOS";1;1;"";Não permitido;string;AMBOS
 /data/documents/cpfNumber;cpfNumber;"Número completo do CPF. 
 Atributo que corresponde às informações mínimas exigidas pela Regulamentação em vigor. 
 O CPF é o Cadastro de Pessoa natural. Ele é um documento feito pela Receita Federal e serve para identificar os contribuintes. O CPF é uma numeração com 11 dígitos, que só mudam por decisão judicial. O documento é emitido pela receita federal";Texto;11;Opcional;^\d{11}$;;0;1;" Campo de preenchimento obrigatório quando o campo documentType for CPF ou AMBOS.
