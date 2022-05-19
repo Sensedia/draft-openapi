@@ -6,7 +6,6 @@ required:
   - feeChargeType
   - feeCharge
   - feeAmount
-  - feeRate
 properties:
   feeName:
     type: string
