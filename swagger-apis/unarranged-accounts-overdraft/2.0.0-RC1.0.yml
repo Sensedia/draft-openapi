@@ -88,7 +88,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseUnarrangedAccountOverdraftContractList'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -131,7 +131,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseUnarrangedAccountOverdraftContract'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -176,7 +176,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseUnarrangedAccountOverdraftWarranties'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -221,7 +221,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseUnarrangedAccountOverdraftInstalments'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -266,7 +266,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseUnarrangedAccountOverdraftPayments'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -648,7 +648,7 @@ components:
         chargeRate:
           type: string
           format: double
-          pattern: '^[0,1].\d{6}$'
+          pattern: '^[01]\.\d{6}^'
           maxLength: 8
           description: |
             Representa o valor do encargo em percentual pactuado no contrato.
@@ -818,8 +818,6 @@ components:
         - feeCode
         - feeChargeType
         - feeCharge
-        - feeAmount
-        - feeRate
       properties:
         feeName:
           type: string
@@ -843,11 +841,12 @@ components:
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           maxLength: 20
           description: |
-            Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo.
+            Valor monetário da tarifa pactuada no contrato.   
+            [Restrição] Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo.
           example: '100000.04'
         feeRate:
           type: string
-          pattern: '^[0,1].\d{6}$'
+          pattern: '^[01]\.\d{6}^'
           format: double
           maxLength: 8
           minLength: 8
@@ -1053,7 +1052,7 @@ components:
             Data de vencimento primeira parcela do principal
         CET:
           type: string
-          pattern: '^[0,1].\d{6}$'
+          pattern: '^[01]\.\d{6}^'
           format: double
           description: |
             "CET – Custo Efetivo Total deve ser expresso na forma de taxa percentual anual e incorpora todos os encargos e despesas incidentes nas operações de crédito (taxa de juro, mas também tarifas, tributos, seguros e outras despesas cobradas). 
@@ -1147,7 +1146,7 @@ components:
         preFixedRate:
           type: string
           format: double
-          pattern: '^[0,1].\d{6}$'
+          pattern: '^[01]\.\d{6}^'
           maxLength: 8
           minLength: 8
           description: |
@@ -1519,6 +1518,12 @@ components:
             $ref: '#/components/schemas/ResponseError'
     UnprocessableEntity:
       description: 'A sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    Default:
+      description: Erro inesperado.
       content:
         application/json; charset=utf-8:
           schema:
