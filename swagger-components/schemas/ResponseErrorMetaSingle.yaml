@@ -30,5 +30,5 @@ properties:
           maxLength: 2048
       additionalProperties: false
   meta:
-    $ref: ../schemas/Meta.yaml
+    $ref: ../schemas/MetaOnlyRequestDateTime.yaml
 additionalProperties: false
