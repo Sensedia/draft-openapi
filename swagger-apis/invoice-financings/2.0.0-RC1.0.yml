@@ -904,8 +904,9 @@ components:
           maximum: 999999
           example: 130632
           description: |
-            Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.   
-            [Restrição] Preenchimento obrigatório caso o tipo de prazo total seja diferente de SEM_PRAZO_TOTAL.
+            Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
+
+            [Restrição] Preenchimento obrigatório caso o campo typeNumberOfInstalments seja diferente de SEM_PRAZO_TOTAL.
         typeContractRemaining:
           type: string
           enum:
@@ -920,8 +921,9 @@ components:
           type: number
           maximum: 999999
           description: |
-            Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.   
-            [Restrição] Preenchimento obrigatório caso o tipo de prazo remanescente seja diferente de SEM_PRAZO_REMANESCENTE.
+            Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.
+
+            [Restrição] Preenchimento obrigatório caso o campo typeContractRemaining seja diferente de SEM_PRAZO_REMANESCENTE.
           example: 14600
         paidInstalments:
           type: number

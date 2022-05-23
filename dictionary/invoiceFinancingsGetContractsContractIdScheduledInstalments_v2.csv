@@ -5,14 +5,14 @@ SEMANA
 MES 
 ANO 
 SEM_PRAZO_TOTAL";1;1;"";Não permitido;string;MES
-/data/totalNumberOfInstalments;totalNumberOfInstalments;Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.;Número;;Condicional;;;0;1;" Preenchimento obrigatório caso o tipo de prazo total seja diferente de SEM_PRAZO_TOTAL.
+/data/totalNumberOfInstalments;totalNumberOfInstalments;Prazo Total segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.;Número;;Condicional;;;0;1;" Preenchimento obrigatório caso o campo typeNumberOfInstalments seja diferente de SEM_PRAZO_TOTAL.
 ";Não permitido;number;130632
 /data/typeContractRemaining;typeContractRemaining;Tipo de prazo remanescente do contrato referente à modalidade de crédito informada.;Texto;;Obrigatório;;"DIA 
 SEMANA 
 MES 
 ANO 
 SEM_PRAZO_REMANESCENTE";1;1;"";Não permitido;string;
-/data/contractRemainingNumber;contractRemainingNumber;Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.;Número;;Condicional;;;0;1;" Preenchimento obrigatório caso o tipo de prazo remanescente seja diferente de SEM_PRAZO_REMANESCENTE.
+/data/contractRemainingNumber;contractRemainingNumber;Prazo Remanescente segundo o tipo (dia, semana, mês, ano) referente à Modalidade de Crédito informada.;Número;;Condicional;;;0;1;" Preenchimento obrigatório caso o campo typeContractRemaining seja diferente de SEM_PRAZO_REMANESCENTE.
 ";Não permitido;number;14600
 /data/paidInstalments;paidInstalments;Quantidade de prestações pagas. (No caso de modalidades que não possuam parcelas, o número de prestações é igual a zero);Número;;Obrigatório;;;1;1;"";Não permitido;number;73
 /data/dueInstalments;dueInstalments;Quantidade de prestações a vencer.(No caso de modalidades que não possuam parcelas, o número de prestações é igual a zero);Número;;Obrigatório;;;1;1;"";Não permitido;number;57
