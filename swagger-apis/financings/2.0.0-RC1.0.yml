@@ -89,7 +89,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseFinancingsContractList'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -132,7 +132,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseFinancingsContract'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -177,7 +177,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseFinancingsWarranties'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -222,7 +222,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseFinancingsInstalments'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -267,7 +267,7 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
         default:
-          $ref: '#/components/responses/OKResponseFinancingsPayments'
+          $ref: '#/components/responses/Default'
       security:
         - OpenId:
             - openid
@@ -779,7 +779,6 @@ components:
         - feeCode
         - feeChargeType
         - feeCharge
-        - feeAmount
       properties:
         feeName:
           type: string
@@ -816,7 +815,8 @@ components:
           example: MINIMO
         feeAmount:
           description: |
-            "Valor monetário da tarifa pactuada no contrato. Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo"
+            Valor monetário da tarifa pactuada no contrato.   
+            [Restrição] Preenchimento obrigatório quando a forma de cobrança for: Mínimo, Máximo ou Fixo
           type: string
           pattern: '^-?\d{1,15}\.\d{2,4}$'
           maxLength: 21
@@ -1513,6 +1513,12 @@ components:
             $ref: '#/components/schemas/ResponseError'
     UnprocessableEntity:
       description: 'A sintaxe da requisição esta correta, mas não foi possível processar as instruções presentes.'
+      content:
+        application/json; charset=utf-8:
+          schema:
+            $ref: '#/components/schemas/ResponseError'
+    Default:
+      description: Erro inesperado.
       content:
         application/json; charset=utf-8:
           schema:
