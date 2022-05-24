@@ -2,6 +2,7 @@ type: object
 required:
   - feeName
   - feeCode
+  - feeAmount
 properties:
   feeName:
     type: string
