@@ -42,6 +42,8 @@ paths:
           $ref: "#/components/responses/NotFound"
         "405":
           $ref: "#/components/responses/MethodNotAllowed"
+        "423":
+          $ref: '#/components/responses/Locked'
         "429":
           $ref: "#/components/responses/TooManyRequests"
         "500":
@@ -65,6 +67,8 @@ paths:
           $ref: "#/components/responses/NotFound"
         "405":
           $ref: "#/components/responses/MethodNotAllowed"
+        "423":
+          $ref: '#/components/responses/Locked'
         "429":
           $ref: "#/components/responses/TooManyRequests"
         "500":
@@ -131,3 +135,5 @@ components:
         application/json; charset=utf-8:
           schema:
             $ref: ./schemas/OpenDataResponseError.yaml
+    Locked:
+      $ref: ./responses/Locked.yaml
