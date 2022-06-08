@@ -4,10 +4,10 @@ required:
   - billId
   - dueDate
   - billTotalAmount
-  - billTotalAmountCurrency
   - billMinimumAmount
   - isInstalment
   - financeCharges
+  - payments
 properties:
   billId:
     description: Informação que identifica a fatura
