@@ -26,7 +26,7 @@ properties:
   billTotalAmount:
     $ref: ./CreditCardsBillTotalAmount.yaml
   billMinimumAmount:
-    $ref: ./CreditCardsAccountsBillsDataAmount.yaml
+    $ref: ./CreditCardAccountsBillMinimumAmount.yaml
   isInstalment:
     type: boolean
     description: Indica se a fatura permite parcelamento (true) ou não (false).

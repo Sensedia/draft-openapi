@@ -519,7 +519,7 @@ components:
         billTotalAmount:
           $ref: '#/components/schemas/CreditCardsBillTotalAmount'
         billMinimumAmount:
-          $ref: '#/components/schemas/CreditCardsAccountsBillsDataAmount'
+          $ref: '#/components/schemas/CreditCardAccountsBillMinimumAmount'
         isInstalment:
           type: boolean
           description: Indica se a fatura permite parcelamento (true) ou não (false).
@@ -802,7 +802,7 @@ components:
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
       additionalProperties: true
-    CreditCardsAccountsBillsDataAmount:
+    CreditCardAccountsBillMinimumAmount:
       type: object
       required:
         - amount
