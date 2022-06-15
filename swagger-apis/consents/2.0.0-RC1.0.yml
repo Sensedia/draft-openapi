@@ -901,7 +901,7 @@ components:
       content:
         application/json; charset=utf-8:
           schema:
-            $ref: '#/components/schemas/ResponseError'
+            $ref: '#/components/schemas/ResponseErrorMetaSingle'
     201ConsentsCreated:
       description: Consentimento criado com sucesso.
       headers:
