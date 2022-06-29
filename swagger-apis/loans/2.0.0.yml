@@ -1459,7 +1459,7 @@ components:
             loans: Escopo necessário para acesso à API Loans. O controle dos endpoints específicos é feito via permissions.
   responses:
     OKResponseLoansContractList:
-      description: Dados dos contratos de empréstimos obtidos com sucesso.
+      description: Lista de contratos obtida com sucesso.
       headers:
         x-fapi-interaction-id:
           schema:
