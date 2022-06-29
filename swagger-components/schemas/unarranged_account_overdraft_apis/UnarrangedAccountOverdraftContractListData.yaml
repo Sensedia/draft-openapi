@@ -13,7 +13,7 @@ properties:
     maxLength: 100
     minLength: 1
     pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
-    description: "Um identificador único e imutável usado para identificar o contrato de uma operação de crédito. Este identificador não tem significado para o tomador do crédito"
+    description: "Identifica de forma única o contrato da operação de crédito do cliente, mantendo as regras de imutabilidade dentro da instituição transmissora."
     example: "xcjklompowsa279212650822221989319aadrtjk"
   brandName:
     type: string
