@@ -1,0 +1,12 @@
+type: string
+enum:
+  - INICIADORA
+  - DETENTORA
+
+example: INICIADORA
+description: |
+  Campo utilizado para informar o meio pelo qual foi realizado o cancelamento.
+
+  INICIADORA
+
+  DETENTORA
