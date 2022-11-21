@@ -149,7 +149,7 @@ components:
       additionalProperties: false
     Participant:
       type: object
-      description: Conjunto de informações relativas ao participante do produto de Open Finance
+      description: Conjunto de informações relativas ao participante do produto de open finance
       required:
         - brand
         - name

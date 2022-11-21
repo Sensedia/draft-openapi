@@ -93,7 +93,7 @@ components:
   schemas:
     Participant:
       type: object
-      description: Conjunto de informações relativas ao participante do produto de Open Finance
+      description: Conjunto de informações relativas ao participante do produto de open finance
       required:
         - brand
         - name
@@ -1907,7 +1907,7 @@ components:
       additionalProperties: false
     Meta:
       type: object
-      description: Meta informações referente à API requisitada.
+      description: Meta informações referente a API requisitada.
       required:
         - totalRecords
         - totalPages
