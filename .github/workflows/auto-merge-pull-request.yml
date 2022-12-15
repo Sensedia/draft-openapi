@@ -12,5 +12,5 @@ jobs:
       - uses: actions/checkout@v3
       - name: Realizando merge
         env: 
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.AREADEV_INTEGRATION }}
         run: gh pr merge ${{ github.event.pull_request.number }} --merge
