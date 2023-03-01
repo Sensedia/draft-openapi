@@ -41,7 +41,9 @@ properties:
     $ref: VoucherPaymentPeriodicity.yaml
   voucherPaymentPeriodicityAdditionalInfo:
     type: string
-    description: Informações adicionais da periodicidade de pagamento de cupom
+    description: |
+      Informações adicionais da periodicidade de pagamento de cupom  
+      [Restrição] Campo de preenchimento obrigatório pelas participantes quando houver 'Outros' no campo 'Periodicidade de pagamento de cupom'.
     maxLength: 50
     pattern: '[\w\W\s]*'
     example: 'Diária'

@@ -24,13 +24,17 @@ properties:
     $ref: EnumInvestimentType.yaml
   debtorCnpjnNumber:
     type: string
-    description: CNPJ do devedor (condicional para CRI e CRA)
+    description: |
+      CNPJ do devedor (condicional para CRI e CRA)  
+      [Restrição] Campo de preenchimento obrigatório pelas participantes quando o tipo do investimento for igual a "CRI" ou "CRA".
     maxLength: 14
     pattern: '^\d{14}$'
     example: '11225860000140'
   debtorName:
     type: string
-    description: Nome da Marca reportada pelo participante no Open Finance. Recomenda-se utilizar, sempre que possível, o mesmo nome de marca atribuído no campo do diretório Customer Friendly Server Name (Authorisation Server).
+    description: |
+      Nome da Marca reportada pelo participante no Open Finance. Recomenda-se utilizar, sempre que possível, o mesmo nome de marca atribuído no campo do diretório Customer Friendly Server Name (Authorisation Server).  
+      [Restrição] Campo de preenchimento obrigatório pelas participantes quando o tipo do investimento for igual a "CRI" ou "CRA".
     pattern: '[\w\W\s]*'
     maxLength: 50
     example: 'Roberto Marino'
@@ -40,7 +44,9 @@ properties:
     $ref: EnumIndexer.yaml
   indexerAdditionalInfo:
     type: string
-    description: Informações adicionais do indexador
+    description: |
+      Informações adicionais do indexador  
+      [Restrição] Campo de preenchimento obrigatório pelas participantes quando houver 'Outros' no campo 'Indexador'.
     pattern: '[\w\W\s]*'
     maxLength: 50
     example: 'Dólar'
