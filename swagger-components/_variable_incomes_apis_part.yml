@@ -384,6 +384,8 @@ components:
       $ref: ./schemas/variable_incomes_apis/VariableIncomesBalancesLinks.yaml
     VariableIncomesBalancesMeta:
       $ref: ./schemas/variable_incomes_apis/VariableIncomesBalancesMeta.yaml
+    MetaSingle:
+      $ref: ./schemas/MetaSingle.yaml
     VariableIncomesMeta:
       $ref: ./schemas/variable_incomes_apis/VariableIncomesMeta.yaml
     VariableIncomesLinks:
