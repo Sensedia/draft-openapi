@@ -22,9 +22,9 @@ properties:
   transactionGrossValue:
     $ref: './TreasureTitlesTransactionGrossValue.yaml'
   incomeTax:
-    $ref: './TreasureTitlesIncomeTax.yaml'
+    $ref: './TreasureTitlesIncomeTaxCurrent.yaml'
   financialTransactionTax:
-    $ref: './TreasureTitlesFinancialTransactionTax.yaml'
+    $ref: './TreasureTitlesFinancialTransactionTaxCurrent.yaml'
   transactionNetValue:
     $ref: './TreasureTitlesTransactionNetValue.yaml'
   remunerationTransactionRate:
