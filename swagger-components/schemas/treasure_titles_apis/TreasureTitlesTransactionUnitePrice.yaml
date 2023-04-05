@@ -5,6 +5,6 @@ required:
   - 'currency'
 properties:
   amount:
-    $ref: './TransactionUnitePriceAmount.yaml'
+    $ref: './TreasureTitlesTransactionUnitePriceAmount.yaml'
   currency:
-    $ref: './TransactionUnitePriceCurrency.yaml'
+    $ref: './TreasureTitlesTransactionUnitePriceCurrency.yaml'

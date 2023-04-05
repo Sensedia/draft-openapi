@@ -2,4 +2,4 @@ description: A solicitação continha um cabeçalho Accept diferente dos tipos d
 content:
   application/json; charset=utf-8:
     schema:
-      $ref: ../ResponseError.yaml
+      $ref: ./TreasureTitlesResponseError.yaml
