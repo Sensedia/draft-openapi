@@ -2521,4 +2521,4 @@ components:
       content:
         application/jwt:
           schema:
-            $ref: '#/components/schemas/ResponsePatchPixPayment'
+            $ref: '#/components/schemas/ResponsePatchPixPayment'  
