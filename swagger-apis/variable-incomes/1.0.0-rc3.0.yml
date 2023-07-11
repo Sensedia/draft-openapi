@@ -47,7 +47,7 @@ servers:
     description: Servidor de Homologação
 tags:
   - name: Product List
-    description: Obtém a lista de operações de Renda Variável mantidas pelo cliente na instituição transmissora e para as quais ele tenha fornecido consentimento.
+    description: Identifica de forma única o relacionamento do cliente com o produto, mantendo as regras de imutabilidade dentro da instituição transmissora. Nos casos em que o cliente, após completar 12 meses da última movimentação e com quantidade de ativos zerada (cliente não tem mais posse do produto sob custódia da transmissora), compre novamente o ativo que já investiu em períodos passados, manter o mesmo investmentId anteriormente utilizado.
   - name: Product Identification
     description: Obtém os dados da operação de Renda Variável identificada por investmentId.
   - name: Balances
@@ -65,9 +65,9 @@ paths:
     get:
       tags:
         - Product List
-      summary: Obtém a lista de operações de Renda Variável mantidas pelo cliente na instituição transmissora e para as quais ele tenha fornecido consentimento.
+      summary: Identifica de forma única o relacionamento do cliente com o produto, mantendo as regras de imutabilidade dentro da instituição transmissora. Nos casos em que o cliente, após completar 12 meses da última movimentação e com quantidade de ativos zerada (cliente não tem mais posse do produto sob custódia da transmissora), compre novamente o ativo que já investiu em períodos passados, manter o mesmo investmentId anteriormente utilizado.
       operationId: variableIncomesGetInvestments
-      description: Obtém a lista de operações de Renda Variável mantidas pelo cliente na instituição transmissora e para as quais ele tenha fornecido consentimento.
+      description: Identifica de forma única o relacionamento do cliente com o produto, mantendo as regras de imutabilidade dentro da instituição transmissora. Nos casos em que o cliente, após completar 12 meses da última movimentação e com quantidade de ativos zerada (cliente não tem mais posse do produto sob custódia da transmissora), compre novamente o ativo que já investiu em períodos passados, manter o mesmo investmentId anteriormente utilizado.
       parameters:
         - $ref: '#/components/parameters/Authorization'
         - $ref: '#/components/parameters/xFapiAuthDate'
@@ -1350,7 +1350,7 @@ components:
     InvestmentId:
       name: investmentId
       in: path
-      description: 'Identifica de forma única  o relacionamento do cliente com o produto, mantendo as regras de imutabilidade dentro da instituição transmissora.'
+      description: Identifica de forma única o relacionamento do cliente com o produto, mantendo as regras de imutabilidade dentro da instituição transmissora. Nos casos em que o cliente, após completar 12 meses da última movimentação e com quantidade de ativos zerada (cliente não tem mais posse do produto sob custódia da transmissora), compre novamente o ativo que já investiu em períodos passados, manter o mesmo investmentId anteriormente utilizado.
       required: true
       schema:
         type: string
