@@ -128,7 +128,7 @@ components:
       required: true
       schema:
         type: string
-        pattern: '^[a-zA-Z0-9][a-zA-Z0-9\-]{0,99}$'
+        pattern: '^v([1-9][0-9]?|10)$'
         maxLength: 100
     xWebhookInteractionId:
       name: x-webhook-interaction-id
