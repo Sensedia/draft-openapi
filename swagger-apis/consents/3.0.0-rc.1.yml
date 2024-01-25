@@ -309,7 +309,7 @@ paths:
       security:
         - OAuth2Security:
             - consents
-  '/consents/{consentId}/extensions':
+  '/consents/{consentId}/extends':
     get:
       tags:
         - Consents
@@ -361,7 +361,6 @@ paths:
       security:
         - OAuth2Security:
             - consents
-  '/consents/{consentId}/extends':
     post:
       tags:
         - Consents
