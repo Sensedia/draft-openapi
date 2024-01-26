@@ -144,6 +144,7 @@ components:
                   1. Pessoa Natural
                   2. Pessoa Jurídica
                   3. Ambas (Pessoa Natural e Jurídica)
+                  4. NA
               enum:
                 - PESSOA_NATURAL
                 - PESSOA_JURIDICA
