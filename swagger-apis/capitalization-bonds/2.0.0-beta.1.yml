@@ -68,12 +68,87 @@ components:
               example: Society A1
             cnpjNumber:
               $ref: '#/components/schemas/Participant/properties/cnpjNumber'
-            products:
+            code:
+              type: string
+              description: Código único a ser definido pela sociedade.
+              minLength: 1
+              maxLength: 100
+              example: 01234589_cap
+            modality:
+              $ref: '#/components/schemas/EnumCapitalizationBondsProductModality'
+            costType:
+              $ref: '#/components/schemas/EnumCapitalizationBondsProductCostType'
+            termsAndConditions:
+              $ref: '#/components/schemas/TermsAndConditions'
+            quotas:
               type: array
+              description: Informações relativas às taxas da Quotas praticadas para cada Parcela
               minItems: 1
-              description: Lista de produtos de uma empresa.
               items:
-                $ref: '#/components/schemas/Products'
+                $ref: '#/components/schemas/CapitalizationBondsProductQuota'
+            validity:
+              type: integer
+              format: int32
+              description: Período entre a data de início e a data final para constituição do capital a ser pago ao(s) titular(es) do direito de resgate. Prazo de vigência do título de capitalização em meses (Resolução CNSP 384/20). Em meses.
+              maximum: 2147483647
+              example: 48
+            serieSize:
+              type: integer
+              description: 'Os títulos de capitalização que prevejam sorteio devem ser estruturados em séries, ou seja, em sequências ou em grupos de títulos submetidos às mesmas condições e características, à exceção do valor do pagamento.'
+              maximum: 2147483647
+              example: 5000000
+            capitalizationPeriod:
+              $ref: '#/components/schemas/CapitalizationBondsProductCapitalizationPeriod'
+            latePayment:
+              $ref: '#/components/schemas/LatePayment'
+            contributionPayment:
+              $ref: '#/components/schemas/ContributionPayment'
+            redemptionPercentageEndTerm:
+              type: string
+              description: 'Percentual mínimo da soma das contribuições efetuadas que poderá ser resgatado ao final da vigência, tendo como condição os pagamentos das parcelas nos respectivos vencimentos.'
+              maxLength: 9
+              minLength: 8
+              pattern: '^(\d{1}\.\d{6})$|^(-1.000000)$'
+              example: '0.019800'
+            finalRedemptionRate:
+              type: string
+              description: Valor percentual (%) de resgate final permitido.
+              pattern: '^(\d{1}\.\d{6})$|^(-1.000000)$'
+              maxLength: 9
+              minLength: 8
+              example: '0.019800'
+            draws:
+              type: array
+              description: Informações relativas aos Sorteios
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/CapitalizationBondsProductPrizeDraw'
+            additionalInfo:
+              type: string
+              description: 'Campo aberto (possibilidade de incluir URL) Observação: As URLs são limitadas a 2048 caracteres mas, para o contexto do Open Insurance , foi adotado a metade deste tamanho (1024). tamanho p.ex.  ‘https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais.'
+              maxLength: 1024
+              example: 'https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais'
+            minimumRequirementDetails:
+              type: string
+              description: |
+                Campo aberto (possibilidade de incluir URL).
+                Observação: As URLs são limitadas a 2048 caracteres mas, para o contexto do Open Insurance , foi adotado a metade deste tamanho (1024).
+                tamanho. p.ex. ‘https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais.’
+              maxLength: 1024
+              example: 'https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais'
+            targetAudience:
+              type: string
+              description: |
+                A considerar os domínios abaixo:
+
+                  1. Pessoa Natural
+                  2. Pessoa Jurídica
+                  3. Ambas (Pessoa Natural e Jurídica)
+              enum:
+                - PESSOA_NATURAL
+                - PESSOA_JURIDICA
+                - PESSOA_NATURAL_JURIDICA
+              example: PESSOA_NATURAL
             brand:
               type: string
               description: Nome da Marca reportada pelo participante do Open Insurance. O conceito a que se refere a 'marca' é em essência uma promessa da empresa em fornecer uma série específica de atributos, benefícios e serviços uniformes aos clientes.
@@ -123,105 +198,6 @@ components:
           pattern: '^(?!\s)[\w\W\s]*[^\s]$'
           example: 'https://empresaa1.com/companies'
       additionalProperties: false
-    Products:
-      type: object
-      required:
-        - modality
-        - costType
-        - valitidy
-        - serieSize
-        - finalRedemptionRate
-        - redemptionPercentageEndTerm
-        - minimumRequirementDetails
-        - targetAudience
-      properties:
-        name:
-          type: string
-          description: 'Nome comercial do produto, pelo qual é identificado nos canais de distribuição e atendimento da sociedade.'
-          minLength: 1
-          maxLength: 80
-          example: ACMEcap
-        code:
-          type: string
-          description: Código único a ser definido pela sociedade.
-          minLength: 1
-          maxLength: 100
-          example: 01234589_cap
-        modality:
-          $ref: '#/components/schemas/EnumCapitalizationBondsProductModality'
-        costType:
-          $ref: '#/components/schemas/EnumCapitalizationBondsProductCostType'
-        termsAndConditions:
-          $ref: '#/components/schemas/TermsAndConditions'
-        quotas:
-          type: array
-          description: Informações relativas às taxas da Quotas praticadas para cada Parcela
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/CapitalizationBondsProductQuota'
-        validity:
-          type: integer
-          format: int32
-          description: Período entre a data de início e a data final para constituição do capital a ser pago ao(s) titular(es) do direito de resgate. Prazo de vigência do título de capitalização em meses (Resolução CNSP 384/20). Em meses.
-          maximum: 2147483647
-          example: 48
-        serieSize:
-          type: integer
-          description: 'Os títulos de capitalização que prevejam sorteio devem ser estruturados em séries, ou seja, em sequências ou em grupos de títulos submetidos às mesmas condições e características, à exceção do valor do pagamento.'
-          maximum: 2147483647
-          example: 5000000
-        capitalizationPeriod:
-          $ref: '#/components/schemas/CapitalizationBondsProductCapitalizationPeriod'
-        latePayment:
-          $ref: '#/components/schemas/LatePayment'
-        contributionPayment:
-          $ref: '#/components/schemas/ContributionPayment'
-        redemptionPercentageEndTerm:
-          type: string
-          description: 'Percentual mínimo da soma das contribuições efetuadas que poderá ser resgatado ao final da vigência, tendo como condição os pagamentos das parcelas nos respectivos vencimentos.'
-          maxLength: 9
-          minLength: 8
-          pattern: '^(\d{1}\.\d{6})$|^(-1.000000)$'
-          example: '0.019800'
-        finalRedemptionRate:
-          type: string
-          description: Valor percentual (%) de resgate final permitido.
-          pattern: '^(\d{1}\.\d{6})$|^(-1.000000)$'
-          maxLength: 9
-          minLength: 8
-          example: '0.019800'
-        draws:
-          type: array
-          description: Informações relativas aos Sorteios
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/CapitalizationBondsProductPrizeDraw'
-        additionalInfo:
-          type: string
-          description: 'Campo aberto (possibilidade de incluir URL) Observação: As URLs são limitadas a 2048 caracteres mas, para o contexto do Open Insurance , foi adotado a metade deste tamanho (1024). tamanho p.ex.  ‘https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais.'
-          maxLength: 1024
-          example: 'https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais'
-        minimumRequirementDetails:
-          type: string
-          description: |
-            Campo aberto (possibilidade de incluir URL).
-            Observação: As URLs são limitadas a 2048 caracteres mas, para o contexto do Open Insurance , foi adotado a metade deste tamanho (1024).
-            tamanho. p.ex. ‘https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais.’
-          maxLength: 1024
-          example: 'https://ACME.exemplo/capitalizacao/tradicional/pdf/condicoes_gerais'
-        targetAudience:
-          type: string
-          description: |
-            A considerar os domínios abaixo:
-
-              1. Pessoa Natural
-              2. Pessoa Jurídica
-              3. Ambas (Pessoa Natural e Jurídica)
-          enum:
-            - PESSOA_NATURAL
-            - PESSOA_JURIDICA
-            - PESSOA_NATURAL_JURIDICA
-          example: PESSOA_NATURAL
     EnumCapitalizationBondsProductModality:
       type: string
       description: |
