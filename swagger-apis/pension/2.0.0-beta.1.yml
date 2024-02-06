@@ -135,6 +135,16 @@ components:
         - name
         - maximumAdministrationFee
         - typePerformanceFee
+      x-regulatory-required:
+        - cnpjNumber
+        - name
+        - maximumAdministrationFee
+        - typePerformanceFee
+        - maximumPerformanceFee
+        - eligibilityRule
+        - minimumContributionAmount
+        - minimumMathematicalProvisionAmount
+        - currency
       properties:
         cnpjNumber:
           $ref: '#/components/schemas/CnpjNumber'
@@ -202,6 +212,9 @@ components:
       required:
         - contractType
         - contractingMinRequirement
+      x-regulatory-required:
+        - contractType
+        - contractingMinRequirement
       properties:
         contractType:
           type: string
@@ -238,14 +251,27 @@ components:
       required:
         - name
         - code
-        - modality
         - coverages
         - termsAndConditions
+        - contributionPayment
+        - minimumRequirement
+        - targetAudience
+      x-regulatory-required:
+        - name
+        - code
+        - modality
+        - assistanceTypes
+        - additional
+        - pmbacRemuneration
         - premiumUpdateIndex
+        - ageAdjustment
+        - financialRegimeContractType
+        - reclaim
         - otherGuaranteedValues
         - contributionPayment
         - minimumRequirement
         - targetAudience
+        - 
       properties:
         name:
           type: string
@@ -325,6 +351,17 @@ components:
         - grantPeriodBenefit
         - costs
         - targetAudience
+      x-regulatory-required:
+        - name
+        - code
+        - segment
+        - modality
+        - type
+        - defferalPeriod
+        - targetAudience
+        - minimumRequirement
+        - grantPeriodBenefit
+        - costs
       properties:
         name:
           type: string
@@ -387,6 +424,16 @@ components:
         - updateIndex
         - otherMinimumPerformanceGarantees
         - reversalFinancialResults
+        - redemptionPaymentTerm
+        - portabilityPaymentTerm
+      x-regulatory-required:
+        - interestRate
+        - updateIndex
+        - otherMinimumPerformanceGarantees
+        - reversalFinancialResults
+        - premiumPaymentMethods
+        - permissionScheduledFinancialPayments
+        - gracePeriod
         - redemptionPaymentTerm
         - portabilityPaymentTerm
       properties:
@@ -496,6 +543,11 @@ components:
         - DEMAIS_PRODUTOS_PREVIDENCIA
     SurvivalPensionGracePeriod:
       type: object
+      x-regulatory-required:
+        - redemption
+        - betweenRedemptionRequests
+        - portability
+        - betweenPortabilityRequests
       description: Prazo de carência
       required:
         - redemption
@@ -532,6 +584,9 @@ components:
       required:
         - loadingAntecipated
         - loadingLate
+      x-regulatory-required:
+        - loadingAntecipated
+        - loadingLate
       properties:
         loadingAntecipated:
           $ref: '#/components/schemas/SurvivalPensionLoadingAntecipated'
@@ -542,6 +597,9 @@ components:
       type: object
       description: Carregamento antecipado.
       required:
+        - minValue
+        - maxValue
+      x-regulatory-required:
         - minValue
         - maxValue
       properties:
@@ -566,6 +624,9 @@ components:
       required:
         - minValue
         - maxValue
+      x-regulatory-required:
+        - minValue
+        - maxValue
       properties:
         minValue:
           type: string
@@ -584,6 +645,10 @@ components:
       additionalProperties: false
     SurvivalPensionMinimumPremium:
       type: object
+      x-regulatory-required:
+        - currency
+        - periodicity
+        - amount
       description: Valor mínimo de prêmio/contribuição
       properties:
         currency:
@@ -613,6 +678,12 @@ components:
       description: Período de concessão do benefício
       required:
         - incomeModalities
+        - interestRate
+        - updateIndex
+        - reversalFinancialResults
+      x-regulatory-required:
+        - incomeModalities
+        - biometricTable
         - interestRate
         - updateIndex
         - reversalFinancialResults
@@ -747,6 +818,10 @@ components:
         - brand
         - name
         - cnpjNumber
+      x-regulatory-required:
+        - brand
+        - name
+        - cnpjNumber
       properties:
         brand:
           type: string
@@ -782,6 +857,10 @@ components:
       required:
         - name
         - cnpjNumber
+        - products
+      x-regulatory-required:
+        - name
+        - cnpjNumber
       properties:
         name:
           type: string
@@ -810,6 +889,10 @@ components:
       required:
         - name
         - cnpjNumber
+      x-regulatory-required:
+        - name
+        - cnpjNumber
+        - products
       properties:
         name:
           type: string
@@ -878,9 +961,10 @@ components:
         - PENSAO_CONJUGE_TEMPORARIA
       example: FUNERAL
     Coverage:
-      type: object
-      required:
+      x-regulatory-required:
         - type
+        - attributes
+      type: object
       properties:
         type:
           $ref: '#/components/schemas/EnumRiskPensionCoverageType'
@@ -914,6 +998,13 @@ components:
         - minValue
         - maxValue
         - indemnifiableDeadline
+        - gracePeriod
+        - excludedRisksURL
+      x-regulatory-required:
+        - minValue
+        - maxValue
+        - indemnifiablePeriod
+        - indemnifiableDeadline
         - indemnityPaymentMethod
         - gracePeriod
         - excludedRisks
@@ -933,6 +1024,9 @@ components:
           $ref: '#/components/schemas/RiskPensionEnumIndemnityPaymentMethod'
         gracePeriod:
           type: object
+          x-regulatory-required:
+            - amount
+            - unit
           description: Período de carência da cobertura
           properties:
             amount:
@@ -960,6 +1054,8 @@ components:
       type: object
       required:
         - amount
+      x-regulatory-required:
+        - amount
         - unit
       properties:
         amount:
@@ -974,6 +1070,9 @@ components:
     TermsAndConditions:
       type: object
       required:
+        - susepProcessNumber
+        - detail
+      x-regulatory-required:
         - susepProcessNumber
         - detail
       properties:
@@ -1008,6 +1107,8 @@ components:
       type: object
       required:
         - gracePeriod
+      x-regulatory-required:
+        - gracePeriod
       properties:
         table:
           type: array
@@ -1029,6 +1130,9 @@ components:
       required:
         - amount
         - currency
+      x-regulatory-required:
+        - amount
+        - currency
       description: 'Listagem do valor mínimo de cobertura (Capital Segurado), diária ou parcela aceito pela sociedade para cada combinação de modalidade/cobertura do produto.<br>Conforme moeda.'
       properties:
         amount:
@@ -1044,6 +1148,9 @@ components:
       required:
         - amount
         - currency
+      x-regulatory-required:
+        - amount
+        - currency
       description: 'Listagem do valor máximo de cobertura (Capital Segurado), diária ou parcela aceito pela sociedade para cada combinação de modalidade/cobertura do produto.<br>Conforme moeda.'
       properties:
         amount:
@@ -1057,6 +1164,9 @@ components:
     RiskPensionMinimumRequirement:
       type: object
       required:
+        - contractType
+        - contractingMinRequirement
+      x-regulatory-required:
         - contractType
         - contractingMinRequirement
       properties:
@@ -1082,6 +1192,11 @@ components:
         - initialMonthRange
         - finalMonthRange
         - percentage
+      x-regulatory-required:
+        - initialMonthRange
+        - finalMonthRange
+        - percentage
+
       properties:
         initialMonthRange:
           type: integer
@@ -1103,6 +1218,10 @@ components:
       type: object
       required:
         - interestRate
+      x-regulatory-required:
+        - interestRate
+        - updateIndexes
+        - 
       properties:
         interestRate:
           type: string
@@ -1131,6 +1250,9 @@ components:
     AgeAdjustment:
       type: object
       required:
+        - criterias
+        - frequency
+      x-regulatory-required:
         - criterias
         - frequency
       properties:
@@ -1291,8 +1413,12 @@ components:
       type: object
       description: Pagamento da contribuição.
       required:
-        - contributionPaymentMethod
         - contributionPeriodicity
+      x-regulatory-required:
+        - contributionPaymentMethod
+        - contributionPaymentMethodAdditionalInfo
+        - contributionPeriodicity
+        - contributionPeriodicityAdditionalInfo
       properties:
         contributionPaymentMethod:
           type: string
