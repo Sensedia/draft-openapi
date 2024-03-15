@@ -144,7 +144,6 @@ components:
       type: object
       required:
         - amount
-        - unit
       x-regulatory-required:
         - amount
         - unit
@@ -641,7 +640,6 @@ components:
           6. Semestral
           7. Fracionado
           8. Outra
-          9. NA
       enum:
         - DIARIA
         - MENSAL
@@ -651,7 +649,6 @@ components:
         - SEMESTRAL
         - FRACIONADO
         - OUTRA
-        - NA
       example: DIARIA
     PersonalInsuranceMinimumRequirement:
       type: object

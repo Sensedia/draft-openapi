@@ -267,9 +267,9 @@ CAPITALIZACAO";0;N;"";Não permitido;array;REPARTICAO_SIMPLES;
   - Dias 
   - Meses
   - Não se aplica
-";Texto;;Obrigatório;Obrigatório;;"DIAS 
+";Texto;;Opcional;Obrigatório;;"DIAS 
 MESES 
-NAO_APLICA";1;1;"";Não permitido;string;MESES;
+NAO_APLICA";0;1;"";Não permitido;string;MESES;
 /data/society/products/reclaim/gracePeriod/details;details;;Texto;500;Opcional;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;Descrições adicionais do período de carência;1
 /data/society/products/reclaim/differenciatedPercentage;differenciatedPercentage;Campo aberto (possibilidade de incluir URL);Texto;1024;Opcional;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;https://openinsurance.com.br/aaa Obs.: Exceção de cobertura ou critério definido acima será descrito aqui na URL Exemplo: Cobertura X: a partir de 25 meses = 100%;1
 /data/society/products/otherGuaranteedValues;otherGuaranteedValues;;Lista;;Opcional;Obrigatório;;"SALDAMENTO 
@@ -315,8 +315,7 @@ ANUAL
 TRIMESTRAL 
 SEMESTRAL 
 FRACIONADO 
-OUTRA 
-NA";1;N;"";Não permitido;array;DIARIA;
+OUTRA";1;N;"";Não permitido;array;DIARIA;
 /data/society/products/premiumPayment/contributionTax;contributionTax;Distribuição de frequência relativa aos valores referentes às taxas cobradas, nos termos do Anexo III.;Texto;500;Opcional;Obrigatório;^(?!\s)[\w\W\s]*[^\s]$;;0;1;"";Não permitido;string;;1
 /data/society/products/minimumRequirement;minimumRequirement;;Objeto;;Opcional;Opcional;;;0;1;"";Não permitido;object;;
 /data/society/products/minimumRequirement/contractType;contractType;"A considerar os domínios abaixo:
