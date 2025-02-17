@@ -3,6 +3,13 @@ info:
   title: API Credit Portability - Open Finance Brasil
   description: |
     A API de Portabilidade de Crédito permite que usuários transfiram suas operações de crédito e arrendamento mercantil entre instituições financeiras em busca de melhores condições para o Open Finance Brasil.
+
+    # Orientações
+    
+    ## Assinatura de payloads:
+    - No contexto da API de Portabilidade de crédito, os payloads de mensagem que trafegam tanto por parte da instituição credora quanto por parte da instituição proponente devem estar assinados. Para o processo de assinatura destes payloads as instituições devem seguir as especificações de segurança publicadas no Portal do desenvolvedor
+    - Certificados exigidos para assinatura de mensagens: [EN] Padrão de Certificados Open Finance Brasil 2.1
+    - Como assinar o payload JWS: Como Assinar o Payload
   version: 1.0.0-beta.1
   license:
     name: Apache 2.0
@@ -372,7 +379,7 @@ components:
           schema:
             $ref: '#/components/schemas/X-V'
       content:
-        application/json:
+        application/jwt:
           schema:
             $ref: '#/components/schemas/ResponseConcurrancyManagement'
     BadRequest:
