@@ -256,7 +256,7 @@ paths:
             - openId
             - 'consent:consentId'
             - loans
-  /portabilities/{portabilityId}/account-data:
+  /account-data:
     get:
       tags:
         - Account data
