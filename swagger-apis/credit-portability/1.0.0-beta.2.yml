@@ -9,7 +9,7 @@ info:
     ## Assinatura de payloads:
       No contexto da API de Portabilidade de crédito, os payloads de mensagem que trafegam tanto por parte da instituição credora quanto por parte da instituição proponente devem estar assinados. Para o processo de assinatura destes payloads as instituições devem seguir as especificações de segurança publicadas no Portal do desenvolvedor  
         &nbsp;&nbsp;- Certificados exigidos para assinatura de mensagens: [[PT] Padrão de Certificados Open Finance Brasil 2.1](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/245694518/PT+Padr+o+de+Certificados+Open+Finance+Brasil+2.1)  
-        &nbsp;&nbsp;- Como assinar o payload JWS: Como Assinar o Payload
+        &nbsp;&nbsp;- Como assinar o payload JWS: [Como Assinar o Payload](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/905740608/Como+assinar+o+payload+-+PC+Portabilidade+de+Cr+dito+-+CPC)
     
     ## Controle de Acesso
     - Os endpoints [GET] /portabilities/{portabilityId}, [GET] /account-data, [POST] /portabilities/{portabilityId}/payment, [PATCH] / portabilities/{portabilityId}/cancel da API de Portabilidade de crédito devem utilizar o escopo client_credentials
@@ -46,7 +46,7 @@ info:
     **- Para endpoint ([PATCH] /portabilities/{portabilityId}/cancel):**   
       &nbsp;&nbsp;**Semânticos**   
         &emsp;- Estado da portabilidade diferente de RECEIVED, PENDING ou ACCEPTED_SETTLEMENT_IN_PROGRESS (CANCELAMENTO_NÃO_EFETUADO). Obs.: De acordo com o PRD o usuário poderá cancelar o pedido de portabilidade até a etapa de liquidação, após esta etapa não será mais permitido o cancelamento da portabilidade   
-  version: 1.0.0-beta.1
+  version: 1.0.0-beta.2
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
@@ -82,6 +82,7 @@ paths:
         - $ref: '#/components/parameters/xFapiCustomerIpAddress'
         - $ref: '#/components/parameters/xFapiInteractionId'
         - $ref: '#/components/parameters/xCustomerUserAgent'
+        - $ref: '#/components/parameters/xIdempotencyKey'
       requestBody:
         content:
           application/jwt:
@@ -106,10 +107,6 @@ paths:
           $ref: '#/components/responses/NotAcceptable'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-        '423':
-          $ref: '#/components/responses/Locked'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
         '504':
@@ -154,10 +151,6 @@ paths:
           $ref: '#/components/responses/NotAcceptable'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-        '423':
-          $ref: '#/components/responses/Locked'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
         '504':
@@ -175,7 +168,7 @@ paths:
         - Credit Portability
       summary: Comunica a Instituição Credora a respeito do cancelamento da portabilidade de crédito.
       description: Comunica a Instituição Credora a respeito do cancelamento da portabilidade de crédito.
-      operationId: creditPortabilityPostPortabilitiesPortabilityIdCancel
+      operationId: creditPortabilityPatchPortabilitiesPortabilityIdCancel
       parameters:
         - $ref: '#/components/parameters/portabilityId'
         - $ref: '#/components/parameters/Authorization'
@@ -207,10 +200,6 @@ paths:
           $ref: '#/components/responses/NotAcceptable'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-        '423':
-          $ref: '#/components/responses/Locked'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
         '504':
@@ -256,10 +245,6 @@ paths:
           $ref: '#/components/responses/NotAcceptable'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-        '423':
-          $ref: '#/components/responses/Locked'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
         '504':
@@ -303,10 +288,6 @@ paths:
           $ref: '#/components/responses/NotAcceptable'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-        '423':
-          $ref: '#/components/responses/Locked'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
         '504':
@@ -356,10 +337,6 @@ paths:
           $ref: '#/components/responses/NotAcceptable'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
-        '423':
-          $ref: '#/components/responses/Locked'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalServerError'
         '504':
@@ -390,7 +367,7 @@ components:
           properties:
               customerContact:
                 type: array
-                minItems: 1
+                minItems: 0
                 description: Dados de contato do cliente
                 items:
                   type: object
@@ -785,12 +762,6 @@ components:
           minItems: 0
           description: Conjunto de informações de contratos de empréstimos/financiamentos mantidos pelo cliente na instituição credora e para os quais ele tenha fornecido consentimento
           required:
-            - contractId
-            - contractNumber
-            - ipocCode
-            - portability
-            - productType
-            - productSubType
             - creationDateTime
           properties:
               portabilityId:
@@ -812,7 +783,7 @@ components:
                   - PORTABILITY_COMPLETED
                   - REJECTED
                   - ACCEPTED_WITH_CHANGE
-                  - CANCELED
+                  - CANCELLED
               creationDateTime:
                 type: string
                 description: |
@@ -964,7 +935,7 @@ components:
                 example: "54d5348c-1a3f-4ff4-a8a8-d0724fb806c6"
               customerContact:
                 type: array
-                minItems: 1
+                minItems: 0
                 description: Dados de contato do cliente.
                 items:
                   type: object
@@ -1049,9 +1020,6 @@ components:
                   - contractId
                   - contractNumber
                   - ipocCode
-                  - contractDate
-                  - paidInstallments
-                  - contractOutstandingBalance
                 properties:
                   contractId:
                     type: string
@@ -1094,7 +1062,7 @@ components:
                 minItems: 1
                 description: Proposta da Proponente para Portabilidade de Crédito.
                 required:
-                  - cet
+                  - CET
                   - amortizationScheduled
                   - interestRates
                   - contractedFees
@@ -1102,10 +1070,9 @@ components:
                   - digitalSignatureProof
                   - totalNumberOfInstallments
                   - installmentPeriodicity
-                  - installmentPeriodicityAdditionalInfo
                   - dueDate
                 properties:
-                  cet:
+                  CET:
                     type: string
                     pattern: '^\d{1,6}\.\d{6}$'
                     maxLength: 13
@@ -1351,21 +1318,14 @@ components:
                 description: |
                   Informação sobre o status de um pedido de portabilidade de crédito, onde:
                   
-                  `RECEIVED` - Estado inicial. Indica que o pedido de portabilidade foi solicitado junto a instituição credora. O pedido deve permanecer neste estado até que o próximo dia útil (D+1) aonde começará a contar o prazo de 3 dias úteis para a etapa de contraproposta e o pedido de portabilidade deverá  ser movido para PENDING.
-                  
-                  `PENDING` - Indica que o pedido de portabilidade de crédito está na fase de contraproposta, onde a instituição credora poderá enviar uma contraproposta ou não para o cliente por qualquer canal (email, telefone, etc.) porém o aceite só deverá ser valido se o cliente aprovar no canal digital da instituição credora.
-                  
-                  `ACCEPTED_SETTLEMENT_IN_PROCESS` - Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado.
-                  
-                  `ACCEPTED_SETTLEMENT_COMPLETED` - Indica que a instituição proponente já liquidou o contrato e comunicou a respeito a credora que está validando os dados do contratos bem como valores recebidos para a quitação do mesmo (nesta etapa a instituição credora tem 2 dias úteis para fornecer a confirmação e o recibo de quitação do contrato de empréstimo).
-                  
-                  `PORTABILITY_COMPLETED` - Indica que o pedido de portabilidade foi concluído com sucesso
-                  
-                  `REJECTED` - Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades.
-                  
-                  `CANCELED` - Indica que o cliente cancelou o pedido de portabilidade de crédito.
-                  
-                  `PAYMENT_ISSUE` - Indica que a portabilidade foi cancelada por inconsistência relacionada no pagamento da Instituição Proponente a Instituição Credora.
+                  - `RECEIVED`: Estado inicial. Indica que o pedido de portabilidade foi solicitado junto a instituição credora. O pedido deve permanecer neste estado até que o próximo dia útil (D+1) aonde começará a contar o prazo de 3 dias úteis para a etapa de contraproposta e o pedido de portabilidade deverá ser movido para PENDING
+                  - `PENDING`: Indica que o pedido de portabilidade de crédito está na fase de contraproposta, onde a instituição credora poderá enviar uma contraproposta ou não para o cliente por qualquer canal (email, telefone, etc.) porém o aceite só deverá ser valido se o cliente aprovar no canal digital da instituição credora
+                  - `ACCEPTED_SETTLEMENT_IN_PROCESS`: Indica que a contraproposta não foi aceita pelo cliente e a instituição proponente terá que quitar o valor do contrato no mesmo dia em que o estado foi ativado
+                  - `ACCEPTED_SETTLEMENT_COMPLETED`: Indica que a instituição proponente já liquidou o contrato e comunicou a respeito a credora que está validando os dados do contratos bem como valores recebidos para a quitação do mesmo (nesta etapa a instituição credora tem 2 dias úteis para fornecer a confirmação e o recibo de quitação do contrato de empréstimo)
+                  - `PORTABILITY_COMPLETED`: Indica que o pedido de portabilidade foi concluído com sucesso
+                  - `REJECTED`: Indica que o pedido de portabilidade de crédito foi rejeitado, seja porque o cliente aceitou a contraproposta, ou porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades
+                  - `CANCELLED`: Indica que o cliente cancelou o pedido de portabilidade de crédito
+                  - `PAYMENT_ISSUE`: Indica que a Instituição Credora encontrou alguma inconsistência na liquidação efetuada e que a Instituição Proponente deverá realizar ajustes conforme sugerido pela Instituição Credora para solucionar a pendencia antes do cancelamento do pedido de portabilidade de crédito
                 enum:
                   - RECEIVED
                   - PENDING
@@ -1373,7 +1333,7 @@ components:
                   - ACCEPTED_SETTLEMENT_COMPLETED
                   - PORTABILITY_COMPLETED
                   - REJECTED
-                  - CANCELED
+                  - CANCELLED
                   - PAYMENT_ISSUE
               statusUpdateDateTime:
                 type: string
@@ -1488,7 +1448,7 @@ components:
                 description: |
                   Objeto contendo detalhes do cancelamento do pedido de portabilidade de crédito junto a Instituição Credora.
 
-                  [RESTRIÇÃO] Campo de preenchimento obrigatório quando `status` for igual a `REJECTED` ou `CANCELED`
+                  [RESTRIÇÃO] Campo de preenchimento obrigatório quando `status` for igual a `REJECTED` ou `CANCELLED`
                 required:
                   - rejectedBy
                   - reason
@@ -1624,8 +1584,7 @@ components:
               required:
                 - ispb
                 - branchCode
-                - hasfinancialAgent
-                - accountNumber
+                - hasFinancialAgent
               properties:
                 ispb:
                   type: number
@@ -1655,7 +1614,7 @@ components:
                   type: number
                   description: Número da Agência creditada a ser usada na STR para pagamento de portabilidade de crédito exclusiva para o OFB.
                   example: 0001
-                hasfinancialAgent:
+                hasFinancialAgent:
                   type: boolean
                   description: Instituição trabalha com agente financeiro ao invés da conta reserva?
                   example: true
@@ -1702,31 +1661,8 @@ components:
             - SIMPLES
             - COMPOSTO
           example: SIMPLES
-        EnumContractReferentialRateIndexerSubType:
-          type: string
-          description: |
-            "Sub tipos de taxas referenciais ou indexadores, conforme Anexo 5: Taxa referencial ou Indexador (Indx), do Documento 3040"
-          enum:
-            - SEM_SUB_TIPO_INDEXADOR
-            - PRE_FIXADO
-            - TR_TBF
-            - TJLP
-            - LIBOR
-            - TLP
-            - OUTRAS_TAXAS_POS_FIXADAS
-            - CDI
-            - SELIC
-            - OUTRAS_TAXAS_FLUTUANTES
-            - IGPM
-            - IPCA
-            - IPCC
-            - OUTROS_INDICES_PRECO
-            - TCR_PRE
-            - TCR_POS
-            - TRFC_PRE
-            - TRFC_POS
-            - OUTROS_INDEXADORES
-          example: TJLP
+        referentialRateIndexerSubType:
+          $ref: '#/components/schemas/EnumReferentialRateIndexerSubType'
         taxPeriodicity:
           type: string
           description: |
@@ -1758,30 +1694,6 @@ components:
             - CREDITO_RURAL
             - OUTROS_INDEXADORES
           example: PRE_FIXADO
-        referentialRateIndexerSubType:
-          type: string
-          description: |
-            "Sub tipos de taxas referenciais ou indexadores, conforme Anexo 5: Taxa referencial ou Indexador (Indx), do Documento 3040"
-          enum:
-            - SEM_SUB_TIPO_INDEXADOR
-            - PRE_FIXADO
-            - TR_TBF
-            - TJLP
-            - LIBOR
-            - TLP
-            - OUTRAS_TAXAS_POS_FIXADAS
-            - CDI
-            - SELIC
-            - OUTRAS_TAXAS_FLUTUANTES
-            - IGPM
-            - IPCA
-            - IPCC
-            - OUTROS_INDICES_PRECO
-            - TCR_PRE
-            - TCR_POS
-            - TRFC_PRE
-            - TRFC_POS
-            - OUTROS_INDE
         referentialRateIndexerAdditionalInfo:
           type: string
           description: |
@@ -1817,6 +1729,31 @@ components:
             Texto com informações adicionais sobre a composição das taxas de juros pactuadas. 
 
             [Restrição] Caso a instituição possua a informação para compartilhamento, esta deverá ser informada.
+    EnumReferentialRateIndexerSubType:
+      type: string
+      description: |
+        "Sub tipos de taxas referenciais ou indexadores, conforme Anexo 5: Taxa referencial ou Indexador (Indx), do Documento 3040"
+      enum:
+        - SEM_SUB_TIPO_INDEXADOR
+        - PRE_FIXADO
+        - TR_TBF
+        - TJLP
+        - LIBOR
+        - TLP
+        - OUTRAS_TAXAS_POS_FIXADAS
+        - CDI
+        - SELIC
+        - OUTRAS_TAXAS_FLUTUANTES
+        - IGPM
+        - IPCA
+        - IPCC
+        - OUTROS_INDICES_PRECO
+        - TCR_PRE
+        - TCR_POS
+        - TRFC_PRE
+        - TRFC_POS
+        - OUTROS_INDEXADORES
+      example: TJLP
     RequestCreditPortabilityCancel:
       type: object
       required:
@@ -1833,7 +1770,7 @@ components:
               description: |
                 Informar usuário responsável pela rejeição da proposta, onde:
 
-                `PROPONETE ` - Indica que o pedido de portabilidade de crédito foi rejeitado pela proponente, seja porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades.
+                `PROPONENTE ` - Indica que o pedido de portabilidade de crédito foi rejeitado pela proponente, seja porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades.
 
                 `USUARIO` - Indica que o cliente cancelou o pedido de portabilidade de crédito.
               enum:
@@ -1868,9 +1805,10 @@ components:
                   pattern: '^(?!\s)[\w\W\s]*[^\s]$'
                   example: "Informações Adicionais"
                   description: |
-                    Informação adicional sobre rejeição de portabilidade de crédito. Ao utilizar essa opção, é fortemente recomendável enviar um ticket como sugestão para estrutura Open Finance para discussão e mapeamento em futuras versões.
+                    Informação adicional sobre rejeição de portabilidade de crédito. 
+                    Ao utilizar essa opção, é fortemente recomendável enviar um ticket para o GT de Portabilidade de Crédito como sugestão para estrutura Open Finance para discussão e mapeamento em futuras versões.
                     
-                    [RESTRIÇÃO] Campo de preenchimento obrigatório quando campo `type` for igual a `OUTROS`
+                    [RESTRIÇÃO] Campo de preenchimento obrigatório quando campo `type` for igual a `OUTROS`.
     RequestCreditPortabilityPayment:
       type: object
       required:
@@ -1949,7 +1887,7 @@ components:
               description: |
                 Informar usuário responsável pela rejeição da proposta, onde:
 
-                `PROPONETE ` - Indica que o pedido de portabilidade de crédito foi rejeitado pela proponente, seja porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades.
+                `PROPONENTE ` - Indica que o pedido de portabilidade de crédito foi rejeitado pela proponente, seja porque a proponente rejeitou a liquidação que excedeu em 15% o valor do contrato original, entre outras possibilidades.
 
                 `USUARIO` - Indica que o cliente cancelou o pedido de portabilidade de crédito.
               enum:
@@ -1984,9 +1922,10 @@ components:
                   pattern: '^(?!\s)[\w\W\s]*[^\s]$'
                   example: "Informações Adicionais"
                   description: |
-                    Informação adicional sobre rejeição de portabilidade de crédito. Ao utilizar essa opção, é fortemente recomendável enviar um ticket como sugestão para estrutura Open Finance para discussão e mapeamento em futuras versões.
+                    Informação adicional sobre rejeição de portabilidade de crédito. 
+                    Ao utilizar essa opção, é fortemente recomendável enviar um ticket para o GT de Portabilidade de Crédito como sugestão para estrutura Open Finance para discussão e mapeamento em futuras versões.
                     
-                    [RESTRIÇÃO] Campo de preenchimento obrigatório quando campo `type` for igual a `OUTROS`
+                    [RESTRIÇÃO] Campo de preenchimento obrigatório quando campo `type` for igual a `OUTROS`.
         meta:
           $ref: '#/components/schemas/Meta'
     POSTResponseCreditPortabilityPayment:
@@ -2093,7 +2032,7 @@ components:
       properties:
         errors:
           type: array
-          minItems: 1
+          minItems: 0
           maxItems: 13
           items:
             type: object
@@ -2194,6 +2133,16 @@ components:
         pattern: '[\w\W\s]*'
         minLength: 1
         maxLength: 100
+    xIdempotencyKey:
+      name: x-idempotency-key
+      in: header
+      description: Cabeçalho HTTP personalizado. Identificador de solicitação exclusivo para suportar a idempotência.
+      required: true
+      schema:
+        type: string
+        pattern: '^(?!\s)(.*)(\S)$'
+        minLength: 1
+        maxLength: 40
     xFapiAuthDate:
       name: x-fapi-auth-date
       in: header
@@ -2255,7 +2204,9 @@ components:
           authorizationUrl: 'https://authserver.example/authorization'
           tokenUrl: 'https://authserver.example/token'
           scopes:
-            loans: Escopo necessário para acesso à API Loans. O controle dos endpoints específicos é feito via permissions. 
+            loans: Escopo necessário para acesso à API Loans. O controle dos endpoints específicos é feito via permissions.
+            openId: Indica que a autorização está sendo realizada utilizando o protocolo definido pela openid.
+            'consent:consentId': Fluxo OAuth necessário para que a instituição proponente tenha acesso aos dados na instituição credora. Requer o processo de redirecionamento e autenticação do usuário a que se referem os dados.
   responses:
     POSTResponseCreditPortability:
       description: Dados dos contratos de empréstimo obtidos com sucesso.
@@ -2427,23 +2378,6 @@ components:
         application/json; charset=utf-8:
           schema:
             $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
-    Locked:
-      description: Locked.
-      headers:
-        x-fapi-interaction-id:
-          description: |
-            Um UUID [RFC4122](https://tools.ietf.org/html/rfc4122) usado como um ID de correlação entre request e response. Campo de geração e envio obrigatório pela IF Proponente (client) e o seu valor deve ser “espelhado” pela IF Credora (server) no cabeçalho de resposta. Caso não seja recebido ou se for recebido um valor inválido, a IF Credora deve gerar um x-fapi-interaction-id e retorná-lo na resposta com o HTTP Status Code 400. A IF Proponente deve acatar o valor recebido da IF Credora.
-          schema:
-            $ref: '#/components/schemas/XFapiInteractionId'
-        x-v:
-          description: |
-            Cabeçalho de envio obrigatório que indica a versão implementada da API pela instituição financeira. Deve ser preenchido de forma completa, por exemplo: x-v : 1.0.2
-          schema:
-            $ref: '#/components/schemas/X-V'
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
     MethodNotAllowed:
       description: O consumidor tentou acessar o recurso com um método não suportado.
       headers:
@@ -2480,23 +2414,6 @@ components:
             $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
     NotFound:
       description: O recurso solicitado não existe ou não foi implementado.
-      headers:
-        x-fapi-interaction-id:
-          description: |
-            Um UUID [RFC4122](https://tools.ietf.org/html/rfc4122) usado como um ID de correlação entre request e response. Campo de geração e envio obrigatório pela IF Proponente (client) e o seu valor deve ser “espelhado” pela IF Credora (server) no cabeçalho de resposta. Caso não seja recebido ou se for recebido um valor inválido, a IF Credora deve gerar um x-fapi-interaction-id e retorná-lo na resposta com o HTTP Status Code 400. A IF Proponente deve acatar o valor recebido da IF Credora.
-          schema:
-            $ref: '#/components/schemas/XFapiInteractionId'
-        x-v:
-          description: |
-            Cabeçalho de envio obrigatório que indica a versão implementada da API pela instituição financeira. Deve ser preenchido de forma completa, por exemplo: x-v : 1.0.2
-          schema:
-            $ref: '#/components/schemas/X-V'
-      content:
-        application/json; charset=utf-8:
-          schema:
-            $ref: '#/components/schemas/ResponseErrorWithAbleAdditionalProperties'
-    TooManyRequests:
-      description: A operação foi recusada, pois muitas solicitações foram feitas dentro de um determinado período ou o limite global de requisições concorrentes foi atingido.
       headers:
         x-fapi-interaction-id:
           description: |
