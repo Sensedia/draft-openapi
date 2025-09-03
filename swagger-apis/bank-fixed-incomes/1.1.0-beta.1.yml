@@ -426,7 +426,9 @@ components:
               type: string
               format: date-time
               description: |
-                Data e hora da última posição consolidada disponível a que se referem os dados transacionais do cliente disponíveis nos canais eletrônicos; Na representação data deve se considerar os minutos e segundos como zero (00:00:00Z).
+                Data e hora da última posição consolidada a que se referem os dados transacionais do cliente disponíveis nos canais eletrônicos.
+                Deve respeitar o prazo máximo de tempestividade da API, conforme a página ["Orientações"](https://openfinancebrasil.atlassian.net/wiki/spaces/OF/pages/102957060).
+                Na representação data deve se considerar os minutos e segundos como zero (00:00:00Z).
 
                 No preenchimento do campo é esperado que a instituição informe a última vez que capturou a posição para compartilhamento no Open Finance. Dessa forma, é possível que:
                 - Caso a instituição capture dados de forma síncrona, essa informação seja de até uma hora atrás;
@@ -1184,7 +1186,7 @@ components:
       description: |
         Data inicial de filtragem.
 
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+        [Restrição] Deve obrigatoriamente sempre ser enviado em conjunto com o campo `toTransactionDate`. Caso os campo `fromTransactionDate` e `toTransactionDate` não sejam enviados, deve ser assumido o dia atual como data padrão.
       required: false
       in: query
       schema:
@@ -1209,8 +1211,8 @@ components:
       name: toTransactionDate
       description: |
         Data final de filtragem.
-
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+        
+        [Restrição] Deve obrigatoriamente sempre ser enviado em conjunto com o campo `fromTransactionDate` . Caso os campo `fromTransactionDate` e `toTransactionDate` não sejam enviados, deve ser assumido o dia atual como data padrão.
       required: false
       in: query
       schema:
