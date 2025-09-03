@@ -4,7 +4,7 @@ info:
   description: |
     API de informações de operações de Renda Fixa Crédito do Open Finance Brasil – Fase 4. API que retorna informações de operações de investimento do tipo Renda Fixa Crédito (Debêntures, CRI/CRA) mantidas nas instituições transmissoras por seus clientes, incluindo dados como denominação do produto, rentabilidade, quantidade, prazos, saldos em posição do cliente e movimentações financeiras.
     Não possui segregação entre pessoa natural e pessoa jurídica. Requer consentimento do cliente para todos os endpoints. A exposição se dará por cada operação de renda fixa contratada pelo cliente.
-  version: 1.1.0
+  version: 1.1.0-beta.1
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0'
@@ -289,6 +289,12 @@ paths:
             - 'consent:consentId'
             - credit-fixed-incomes
 components:
+  headers:
+    X-V: 
+      description: "Cabeçalho que indica a versão implementada da API pela instituição financeira. Deve ser preenchido de forma completa, por exemplo: x-v : 1.0.2"
+      required: true
+      schema:
+        $ref: '#/components/schemas/X-V'
   schemas:
     ResponseCreditFixedIncomesProductList:
       type: object
@@ -566,7 +572,7 @@ components:
 
             Caso a instituição tenha a informação, o envio será obrigatório.
           maxLength: 14
-          pattern: '^\d{14}$'
+          pattern: '^[0-9A-Z]{12}[0-9]{2}$'
           example: '11225860000140'
         isinCode:
           type: string
@@ -584,7 +590,7 @@ components:
           description: |
             CNPJ do devedor. Caso a transmissora possua a informação para os produtos CRI e CRA, o envio deste campo é obrigatório.
           maxLength: 14
-          pattern: '^\d{14}$'
+          pattern: '^[0-9A-Z]{12}[0-9]{2}$'
           example: '11225860000140'
         debtorName:
           type: string
@@ -659,39 +665,34 @@ components:
       properties:
         self:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: URI completo que gerou a resposta atual.
+          description: URL completo que gerou a resposta atual.
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         first:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: URI da primeira página que originou essa lista de resultados. Restrição - Obrigatório quando não for a primeira página da resposta
+          description: URL da primeira página que originou essa lista de resultados. Restrição - Obrigatório quando não for a primeira página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         prev:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: "URI da página anterior dessa lista de resultados. Restrição - \tObrigatório quando não for a primeira página da resposta"
+          description: "URL da página anterior dessa lista de resultados. Restrição - \tObrigatório quando não for a primeira página da resposta"
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         next:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: URI da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
+          description: URL da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         last:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: URI da última página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta.
+          description: URL da última página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta.
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%.\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%\+.~#?&\/\/=]*)$'
     CreditFixedIncomesLinks:
       type: object
       description: Referências para outros recusos da API requisitada.
@@ -700,39 +701,34 @@ components:
       properties:
         self:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: URI completo que gerou a resposta atual.
+          description: URL completo que gerou a resposta atual.
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         first:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: URI da primeira página que originou essa lista de resultados. Restrição - Obrigatório quando não for a primeira página da resposta
+          description: URL da primeira página que originou essa lista de resultados. Restrição - Obrigatório quando não for a primeira página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         prev:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: "URI da página anterior dessa lista de resultados. Restrição - \tObrigatório quando não for a primeira página da resposta"
+          description: "URL da página anterior dessa lista de resultados. Restrição - \tObrigatório quando não for a primeira página da resposta"
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         next:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: URI da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
+          description: URL da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         last:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: URI da última página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
+          description: URL da última página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
     CreditFixedIncomesTransactionsLinks:
       type: object
       description: Referências para outros recusos da API requisitada.
@@ -741,32 +737,28 @@ components:
       properties:
         self:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: URI completo que gerou a resposta atual.
+          description: URL completo que gerou a resposta atual.
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         first:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: URI da primeira página que originou essa lista de resultados. Restrição - Obrigatório quando não for a primeira página da resposta
+          description: URL da primeira página que originou essa lista de resultados. Restrição - Obrigatório quando não for a primeira página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         prev:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: "URI da página anterior dessa lista de resultados. Restrição - \tObrigatório quando não for a primeira página da resposta"
+          description: "URL da página anterior dessa lista de resultados. Restrição - \tObrigatório quando não for a primeira página da resposta"
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         next:
           type: string
-          format: uri
+          format: url
           maxLength: 2000
-          description: URI da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
+          description: URL da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
     CreditFixedIncomesMeta:
       type: object
       description: Meta informações referente a API requisitada.
@@ -820,9 +812,9 @@ components:
           example: Organização A
         companyCnpj:
           type: string
-          description: 'Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara'
+          description: 'Registro completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde a representação alfanumérica da inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os caracteres do CNPJ, sem máscara'
           maxLength: 14
-          pattern: '^\d{14}$'
+          pattern: '^[0-9A-Z]{12}[0-9]{2}$'
           example: '21128159000166'
         investmentType:
           $ref: '#/components/schemas/EnumInvestimentType'
@@ -1468,6 +1460,10 @@ components:
               maxLength: 20
               format: date-time
               example: '2021-05-21T08:30:00Z'
+    X-V:
+      type: string
+      pattern: '^\d+\.\d+\.\d+$'
+      example: 1.0.0
   parameters:
     InvestmentId:
       name: investmentId
@@ -1619,30 +1615,45 @@ components:
   responses:
     ResponseCreditFixedIncomesProductList:
       description: Dados obtidos com sucesso.
+      headers:
+        x-v:
+          $ref: '#/components/headers/X-V'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ResponseCreditFixedIncomesProductList'
     ResponseCreditFixedIncomesProductIdentification:
       description: Dados obtidos com sucesso.
+      headers:
+        x-v:
+          $ref: '#/components/headers/X-V'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ResponseCreditFixedIncomesProductIdentification'
     ResponseCreditFixedIncomesBalances:
       description: Dados obtidos com sucesso.
+      headers:
+        x-v:
+          $ref: '#/components/headers/X-V'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ResponseCreditFixedIncomesBalances'
     ResponseCreditFixedIncomesTransactions:
       description: Dados obtidos com sucesso.
+      headers:
+        x-v:
+          $ref: '#/components/headers/X-V'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ResponseCreditFixedIncomesTransactions'
     ResponseCreditFixedIncomesTransactionsCurrent:
       description: Dados obtidos com sucesso.
+      headers:
+        x-v:
+          $ref: '#/components/headers/X-V'
       content:
         application/json:
           schema:
