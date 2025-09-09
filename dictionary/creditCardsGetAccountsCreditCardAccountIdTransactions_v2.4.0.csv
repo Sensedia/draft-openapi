@@ -15,7 +15,8 @@ Débito (no extrato) Em um extrato bancário, os débitos, marcados com a letra 
 Crédito (no extrato) Em um extrato bancário, os créditos, marcados com a letra “C” ao lado do valor registrado, informam as entradas de dinheiro na conta-corrente.
 ";Texto;;Obrigatório;;"CREDITO 
 DEBITO";1;1;"";Não permitido;string;DEBITO;
-/data/transactionType;transactionType;Traz os tipos de Transação;Texto;;Obrigatório;;"PAGAMENTO 
+/data/transactionType;transactionType;Traz os tipos de transações. O tipo `PAGAMENTO_FATURA` deve ser utilizado para pagamentos parciais (liberação de limite ou pagamento mínimo, por exemplo) ou total de fatura.;Texto;;Obrigatório;;"PAGAMENTO 
+PAGAMENTO_FATURA 
 TARIFA 
 OPERACOES_CREDITO_CONTRATADAS_CARTAO 
 ESTORNO 
