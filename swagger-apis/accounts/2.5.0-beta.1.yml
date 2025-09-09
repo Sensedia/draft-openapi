@@ -790,8 +790,8 @@ components:
         companyCnpj:
           type: string
           maxLength: 14
-          pattern: '^\d{14}$'
-          description: 'Número completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde ao número de inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os números do CNPJ, sem máscara'
+          pattern: '^[0-9A-Z]{12}[0-9]{2}$'
+          description: 'Registro completo do CNPJ da instituição responsável pelo Cadastro - o CNPJ corresponde a representação alfanumérica da inscrição no Cadastro de Pessoa Jurídica. Deve-se ter apenas os caracteres do CNPJ, sem máscara.'
           example: '21128159000166'
         type:
           $ref: '#/components/schemas/EnumAccountType'
@@ -947,7 +947,7 @@ components:
         partieCnpjCpf:
           type: string
           maxLength: 14
-          pattern: '^\d{11}$|^\d{14}$'
+          pattern: '^[0‑9]{11}|[0‑9A‑Z]{12}[0‑9]{2}$'
           description: |
             Identificação da pessoa envolvida na transação: pagador ou recebedor (Preencher com o CPF ou CNPJ, sem formatação). Com a IN BCB nº 371, a partir de 02/05/23, o envio das informações de identificação de contraparte tornou-se obrigatória para transações de pagamento. Para maiores detalhes, favor consultar a página `Orientações - Contas`.
 
@@ -1093,31 +1093,31 @@ components:
         self:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: URI completo que gerou a resposta atual.
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
         first:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: URI da primeira página que originou essa lista de resultados. Restrição - Obrigatório quando não for a primeira página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
         prev:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: "URI da página anterior dessa lista de resultados. Restrição - \tObrigatório quando não for a primeira página da resposta"
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
         next:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: URI da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
         last:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: URI da última página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
     LinksAccountId:
@@ -1129,31 +1129,31 @@ components:
         self:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: URI completo que gerou a resposta atual.
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
         first:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: URI da primeira página que originou essa lista de resultados. Restrição - Obrigatório quando não for a primeira página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
         prev:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: "URI da página anterior dessa lista de resultados. Restrição - \tObrigatório quando não for a primeira página da resposta"
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
         next:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: URI da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
         last:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: URI da última página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
     TransactionsLinks:
@@ -1165,25 +1165,25 @@ components:
         self:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: URI completo que gerou a resposta atual.
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
         first:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: URI da primeira página que originou essa lista de resultados. Restrição - Obrigatório quando não for a primeira página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
         prev:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: "URI da página anterior dessa lista de resultados. Restrição - \tObrigatório quando não for a primeira página da resposta"
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
         next:
           type: string
           format: url
-          maxLength: 2000
+          maxLength: 4048
           description: URI da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v2/resource'
     Meta:
