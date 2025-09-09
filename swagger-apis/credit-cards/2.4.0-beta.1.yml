@@ -881,7 +881,10 @@ components:
           example: O perfil do cliente passou por uma análise e o limite precisou ser zerado
     CreditCardsUsedAmount:
       type: object
-      description: Valor utilizado do limite informado
+      description: |
+        Valor utilizado do limite informado. 
+        Limites extras fornecidos ou contratados e usados pelo cliente devem ser somados neste campo. 
+        Assim, se o valor deste campo for maior que o limite do cliente, significa o uso e contratação de limites extras no cartão.
       required:
         - amount
         - currency
