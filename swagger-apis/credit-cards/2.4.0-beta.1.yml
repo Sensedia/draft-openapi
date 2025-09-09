@@ -578,7 +578,7 @@ components:
         - payments
       properties:
         billId:
-          description: Informação que identifica a fatura
+          description: Código único e imutável que identifica a fatura.
           type: string
           maxLength: 100
           minLength: 1
@@ -1007,7 +1007,7 @@ components:
           minLength: 1
           pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
           example: MTU0OTU1NjI2NTk4OTRmc2ZhZDRmc2Q1NmZkM
-          description: Informação que identifica a fatura onde consta a transação informada.
+          description: Código único e imutável que identifica a fatura onde consta a transação informada.
         creditDebitType:
           $ref: '#/components/schemas/EnumCreditDebitIndicator'
         transactionType:
@@ -1128,7 +1128,9 @@ components:
           minLength: 1
           pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$'
           example: MTU0OTU1NjI2NTk4OTRmc2ZhZDRmc2Q1NmZkM
-          description: Informação que identifica a fatura onde consta a transação informada. Preencher apenas para casos de transação em fatura fechada, ou seja, este campo não é esperado em casos de transação em fatura aberta.
+          description: |
+            Código único e imutável que identifica a fatura onde consta a transação informada. 
+            Preencher apenas para casos de transação em fatura fechada, ou seja, este campo não é esperado em casos de transação em fatura aberta.
         creditDebitType:
           $ref: '#/components/schemas/EnumCreditDebitIndicator'
         transactionType:
