@@ -269,8 +269,8 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/pageSize'
         - $ref: '#/components/parameters/pagination-key'
-        - $ref: '#/components/parameters/fromTransactionDate'
-        - $ref: '#/components/parameters/toTransactionDate'
+        - $ref: '#/components/parameters/fromTransactionDateBills'
+        - $ref: '#/components/parameters/toTransactionDateBills'
         - $ref: '#/components/parameters/creditCardTransactionType'
         - $ref: '#/components/parameters/creditCardPayeeMCC'
       responses:
@@ -1778,12 +1778,25 @@ components:
         maxLength: 10
         format: date
         example: '2021-05-21'
+    fromTransactionDateBills:
+      name: fromTransactionDate
+      description: |
+        Data inicial de filtragem.
+        
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo `toTransactionDate` seja informado. Caso não seja informado os campos de filtro deve se retornar todas as transações correspondentes a fatura. A filtragem deve ser feita utilizando o campo `transactionDateTime`.
+      required: false
+      in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2021-05-21'
     fromTransactionDate:
       name: fromTransactionDate
       description: |
         Data inicial de filtragem.
-
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo `toTransactionDate` seja informado. Caso não seja informado os campos de filtro deve se retornar todas as transações correspondentes a fatura.
+        
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo `toTransactionDate` seja informado. Caso não seja informado, deve ser assumido o dia atual. A filtragem deve ser feita utilizando o campo `transactionDateTime`.
       required: false
       in: query
       schema:
@@ -1795,8 +1808,8 @@ components:
       name: fromTransactionDate
       description: |
         Data inicial de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
-
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo `toTransactionDate` seja informado. Caso não seja informado os campos de filtro deve se retornar todas as transações correspondentes a fatura.
+        
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo `toTransactionDate` seja informado. Caso não seja informado, deve ser assumido o dia atual. A filtragem deve ser feita utilizando o campo `transactionDateTime`.
       required: false
       in: query
       schema:
@@ -1842,12 +1855,25 @@ components:
         maxLength: 10
         format: date
         example: '2021-05-21'
+    toTransactionDateBills:
+      name: toTransactionDate
+      description: |
+        Data inicial de filtragem.
+        
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo `toTransactionDate` seja informado. Caso não seja informado os campos de filtro deve se retornar todas as transações correspondentes a fatura. A filtragem deve ser feita utilizando o campo `transactionDateTime`.
+      required: false
+      in: query
+      schema:
+        type: string
+        maxLength: 10
+        format: date
+        example: '2021-05-21'
     toTransactionDate:
       name: toTransactionDate
       description: |
         Data final de filtragem.
-
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo `fromTransactionDate` seja informado. Caso não seja informado os campos de filtro deve se retornar todas as transações correspondentes a fatura.
+        
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo `fromTransactionDate` seja informado. Caso não seja informado, deve ser assumido o dia atual. A filtragem deve ser feita utilizando o campo `transactionDateTime`.
       required: false
       in: query
       schema:
@@ -1859,8 +1885,8 @@ components:
       name: toTransactionDate
       description: |
         Data final de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
-
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo `fromTransactionDate` seja informado. Caso não seja informado os campos de filtro deve se retornar todas as transações correspondentes a fatura.
+        
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo `fromTransactionDate` seja informado. Caso não seja informado, deve ser assumido o dia atual. A filtragem deve ser feita utilizando o campo `transactionDateTime`.
       required: false
       in: query
       schema:
