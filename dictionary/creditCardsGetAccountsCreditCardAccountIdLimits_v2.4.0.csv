@@ -1,14 +1,20 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
-/data;data;"[Restrição] A lista vazia deve ser interpretada como a ausência da informação.
-
-Cenário de limite com valor zerado, deve ter um registro explícito informando o valor como zero.
-
-Cenário de ""cartão sem limite"", isto é, cartões em que o uso do limite é ilimitado, deve ser informado em um registro explícito com isLimitFlexible como true.
-";Lista;;Obrigatório;;;0;N;" A lista vazia deve ser interpretada como a ausência da informação.
-
-Cenário de limite com valor zerado, deve ter um registro explícito informando o valor como zero.
-
-Cenário de ""cartão sem limite"", isto é, cartões em que o uso do limite é ilimitado, deve ser informado em um registro explícito com isLimitFlexible como true.
+/data;data;"[Restrição] O envio dos dados de limites deve seguir as seguintes orientações:
+- A lista vazia deve ser interpretada como a ausência da informação;
+- Cenário de limite com valor zerado, deve ter um registro explícito informando o valor como zero;
+- Cenário de ""cartão sem limite"", isto é, cartões em que o uso do limite é flexível, deve ser informado em um registro explícito com isLimitFlexible como true;
+- Os limites globais devem ser compartilhados na lista de limites, definidos pelo enum CONSOLIDADO, no campo consolidationType. Limites já incluídos no global não devem ser compartilhados, para não ocorrer redundância de informações;
+- Limites segregados, que não fazem parte do global, devem ser compartilhados pelo enum INDIVIDUAL, no campo consolidationType.
+- Cartões virtuais, só devem ter seu limite listado caso o limite do mesmo for segregado do global, assim, devem ser compartilhados pelo enum INDIVIDUAL, no campo consolidationType.
+- Só devem ser compartilhados limites de cartões ativos.   
+";Lista;;Obrigatório;;;0;N;" O envio dos dados de limites deve seguir as seguintes orientações:
+- A lista vazia deve ser interpretada como a ausência da informação;
+- Cenário de limite com valor zerado, deve ter um registro explícito informando o valor como zero;
+- Cenário de ""cartão sem limite"", isto é, cartões em que o uso do limite é flexível, deve ser informado em um registro explícito com isLimitFlexible como true;
+- Os limites globais devem ser compartilhados na lista de limites, definidos pelo enum CONSOLIDADO, no campo consolidationType. Limites já incluídos no global não devem ser compartilhados, para não ocorrer redundância de informações;
+- Limites segregados, que não fazem parte do global, devem ser compartilhados pelo enum INDIVIDUAL, no campo consolidationType.
+- Cartões virtuais, só devem ter seu limite listado caso o limite do mesmo for segregado do global, assim, devem ser compartilhados pelo enum INDIVIDUAL, no campo consolidationType.
+- Só devem ser compartilhados limites de cartões ativos.   
 ";Não permitido;array;;
 /data/creditLineLimitType;creditLineLimitType;"Indicador do tipo de limite
 
