@@ -615,7 +615,9 @@ components:
           items:
             $ref: '#/components/schemas/CreditCardAccountsBillsPayment'
           minItems: 0
-          description: Lista que traz os valores relativos aos pagamentos da Fatura da conta de pagamento pós-paga
+          description: |
+            Lista que traz os valores relativos aos pagamentos da Fatura da conta de pagamento pós-paga.
+            Pagamentos efetuados a partir do momento que uma nova fatura é fechada e exposta, devem estar listados na fatura fechada, até que haja um novo fechamento.
     CreditCardAccountsBillsFinanceCharge:
       type: object
       required:
