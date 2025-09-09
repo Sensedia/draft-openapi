@@ -1654,7 +1654,7 @@ components:
       description: |
         Data inicial de filtragem.
 
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo `toTransactionDate` seja informado. Caso não seja informado os campos de filtro deve se retornar todas as transações correspondentes a fatura.
       required: false
       in: query
       schema:
@@ -1667,7 +1667,7 @@ components:
       description: |
         Data inicial de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
 
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo toTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo `toTransactionDate` seja informado. Caso não seja informado os campos de filtro deve se retornar todas as transações correspondentes a fatura.
       required: false
       in: query
       schema:
@@ -1718,7 +1718,7 @@ components:
       description: |
         Data final de filtragem.
 
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo `fromTransactionDate` seja informado. Caso não seja informado os campos de filtro deve se retornar todas as transações correspondentes a fatura.
       required: false
       in: query
       schema:
@@ -1731,7 +1731,7 @@ components:
       description: |
         Data final de filtragem. O período máximo utilizado no filtro é de 7 dias inclusive (D-6).
 
-        [Restrição] Deve obrigatoriamente ser enviado caso o campo fromTransactionDate seja informado. Caso não seja informado, deve ser assumido o dia atual.
+        [Restrição] Deve obrigatoriamente ser enviado caso o campo `fromTransactionDate` seja informado. Caso não seja informado os campos de filtro deve se retornar todas as transações correspondentes a fatura.
       required: false
       in: query
       schema:
