@@ -1,14 +1,20 @@
 ﻿Xpath;Nome;Definição;Tipo de Dado;Tamanho;Mandatoriedade;Formato;Domínio;Mínimo de Ocorrências;Máximo de Ocorrências;Restrições;Nulidade;Tipo de Dado Json;Exemplo;Tamanho mínimo
-/data;data;"[Restrição] A lista vazia deve ser interpretada como a ausência da informação.
-
-Cenário de limite com valor zerado, deve ter um registro explícito informando o valor como zero.
-
-Cenário de ""cartão sem limite"", isto é, cartões em que o uso do limite é ilimitado, deve ser informado em um registro explícito com isLimitFlexible como true.
-";Lista;;Obrigatório;;;0;N;" A lista vazia deve ser interpretada como a ausência da informação.
-
-Cenário de limite com valor zerado, deve ter um registro explícito informando o valor como zero.
-
-Cenário de ""cartão sem limite"", isto é, cartões em que o uso do limite é ilimitado, deve ser informado em um registro explícito com isLimitFlexible como true.
+/data;data;"[Restrição] O envio dos dados de limites deve seguir as seguintes orientações:
+- A lista vazia deve ser interpretada como a ausência da informação;
+- Cenário de limite com valor zerado, deve ter um registro explícito informando o valor como zero;
+- Cenário de ""cartão sem limite"", isto é, cartões em que o uso do limite é flexível, deve ser informado em um registro explícito com isLimitFlexible como true;
+- Os limites globais devem ser compartilhados na lista de limites, definidos pelo enum CONSOLIDADO, no campo consolidationType. Limites já incluídos no global não devem ser compartilhados, para não ocorrer redundância de informações;
+- Limites segregados, que não fazem parte do global, devem ser compartilhados pelo enum INDIVIDUAL, no campo consolidationType.
+- Cartões virtuais, só devem ter seu limite listado caso o limite do mesmo for segregado do global, assim, devem ser compartilhados pelo enum INDIVIDUAL, no campo consolidationType.
+- Só devem ser compartilhados limites de cartões ativos.   
+";Lista;;Obrigatório;;;0;N;" O envio dos dados de limites deve seguir as seguintes orientações:
+- A lista vazia deve ser interpretada como a ausência da informação;
+- Cenário de limite com valor zerado, deve ter um registro explícito informando o valor como zero;
+- Cenário de ""cartão sem limite"", isto é, cartões em que o uso do limite é flexível, deve ser informado em um registro explícito com isLimitFlexible como true;
+- Os limites globais devem ser compartilhados na lista de limites, definidos pelo enum CONSOLIDADO, no campo consolidationType. Limites já incluídos no global não devem ser compartilhados, para não ocorrer redundância de informações;
+- Limites segregados, que não fazem parte do global, devem ser compartilhados pelo enum INDIVIDUAL, no campo consolidationType.
+- Cartões virtuais, só devem ter seu limite listado caso o limite do mesmo for segregado do global, assim, devem ser compartilhados pelo enum INDIVIDUAL, no campo consolidationType.
+- Só devem ser compartilhados limites de cartões ativos.   
 ";Não permitido;array;;
 /data/creditLineLimitType;creditLineLimitType;"Indicador do tipo de limite
 
@@ -52,7 +58,10 @@ Todos os limite informados estão representados com a moeda vigente do Brasil.
 [Restrição] Campo de preenchimento obrigatório quando limitAmount for igual a 0.00.
 ";Texto;200;Condicional;[\w\W\s]*;;0;1;" Campo de preenchimento obrigatório quando limitAmount for igual a 0.00.
 ";Não permitido;string;O perfil do cliente passou por uma análise e o limite precisou ser zerado;
-/data/usedAmount;usedAmount;Valor utilizado do limite informado;Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
+/data/usedAmount;usedAmount;"Valor utilizado do limite informado. 
+Limites extras fornecidos ou contratados e usados pelo cliente devem ser somados neste campo. 
+Assim, se o valor deste campo for maior que o limite do cliente, significa o uso e contratação de limites extras no cartão.
+";Objeto;;Obrigatório;;;1;1;"";Não permitido;object;;
 /data/usedAmount/amount;amount;Valor utilizado do limite informado expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais.;Texto;21;Obrigatório;^-?\d{1,15}\.\d{2,4}$;;1;1;"";Não permitido;string;1000.0400;4
 /data/usedAmount/currency;currency;"Moeda referente ao limite informado, segundo modelo ISO-4217. p.ex. 'BRL.'
 Todos os saldos informados estão representados com a moeda vigente do Brasil. 
