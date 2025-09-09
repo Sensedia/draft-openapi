@@ -485,7 +485,9 @@ components:
     CreditCardAccountsTransactionAmount:
       type: object
       description: |
-        Valor original da transação. Expresso em valor monetário com no mínimo 2 casas decimais e no máximo 4 casas decimais. Deve ser sempre preenchido com o valor original da transação independente da nacionalidade, sem convertê-lo.
+        Valor original da transação. Expresso em valor monetário com no mínimo 2 casas decimais e no máximo 4 casas decimais. 
+        Deve ser sempre preenchido com o valor original da transação independente da nacionalidade, sem convertê-lo. 
+        Para compras parceladas o valor do campo deve corresponder ao valor da parcela.   
       required:
         - amount
         - currency
@@ -505,6 +507,52 @@ components:
           description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
           example: BRL
     CreditCardAccountsTransactionBrazilianAmount:
+      type: object
+      description: |
+        Valor original da transação. Expresso em valor monetário com no mínimo 2 casas decimais e no máximo 4 casas decimais. 
+        Deve ser sempre preenchido com o valor original da transação independente da nacionalidade, sem convertê-lo. 
+        Para compras parceladas o valor do campo deve corresponder ao valor da parcela. 
+      required:
+        - amount
+        - currency
+      properties:
+        amount:
+          type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
+          description: Valor relacionado ao objeto.
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+          example: BRL
+    CreditCardAccountsTransactionAmountBills:
+      type: object
+      description: |
+        Valor original da transação. Expresso em valor monetário com no mínimo 2 casas decimais e no máximo 4 casas decimais. Deve ser sempre preenchido com o valor original da transação independente da nacionalidade, sem convertê-lo.
+      required:
+        - amount
+        - currency
+      properties:
+        amount:
+          type: string
+          format: double
+          pattern: '^\d{1,15}\.\d{2,4}$'
+          maxLength: 20
+          minLength: 4
+          example: '1000.0400'
+          description: Valor relacionado ao objeto.
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          maxLength: 3
+          description: 'Moeda referente ao valor monetário, seguindo o modelo ISO-4217.'
+          example: BRL
+    CreditCardAccountsTransactionBrazilianAmountBills:
       type: object
       description: |
         Valor da transação expresso em valor monetário com no mínimo 2 casas e no máximo 4 casas decimais, em moeda corrente do Brasil. Deve ser o valor de amount convertido para BRL (em caso de compra internacional) ou o mesmo valor de amount (em caso de compra nacional).
@@ -1067,9 +1115,9 @@ components:
             Quantidade de parcelas.   
             [Restrição] O campo deve ser preenchido quando houverem parcelas relacionadas a transação.
         brazilianAmount:
-          $ref: '#/components/schemas/CreditCardAccountsTransactionBrazilianAmount'
+          $ref: '#/components/schemas/CreditCardAccountsTransactionBrazilianAmountBills'
         amount:
-          $ref: '#/components/schemas/CreditCardAccountsTransactionAmount'
+          $ref: '#/components/schemas/CreditCardAccountsTransactionAmountBills'
         transactionDateTime:
           type: string
           format: date-time
