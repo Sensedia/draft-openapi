@@ -186,6 +186,13 @@ paths:
           - 'consent:consentId'
           - 'exchanges'
 components:
+  headers:
+    X-V: 
+      description: |
+          Cabeçalho que indica a versão implementada da API pela instituição financeira. Deve ser preenchido de forma completa, por exemplo: x-v : 1.0.2
+      required: true
+      schema:
+        $ref: '#/components/schemas/X-V'
   schemas:
     Links:
       type: object
@@ -195,39 +202,34 @@ components:
       properties:
         self:
           type: string
-          format: uri
-          maxLength: 2000
-          description: URI completo que gerou a resposta atual.
+          format: url
+          maxLength: 4048
+          description: URL completo que gerou a resposta atual.
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         first:
           type: string
-          format: uri
-          maxLength: 2000
-          description: URI da primeira página que originou essa lista de resultados. Restrição - Obrigatório quando não for a primeira página da resposta
+          format: url
+          maxLength: 4048
+          description: URL da primeira página que originou essa lista de resultados. Restrição - Obrigatório quando não for a primeira página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         prev:
           type: string
-          format: uri
-          maxLength: 2000
-          description: "URI da página anterior dessa lista de resultados. Restrição - \tObrigatório quando não for a primeira página da resposta"
+          format: url
+          maxLength: 4048
+          description: "URL da página anterior dessa lista de resultados. Restrição - \tObrigatório quando não for a primeira página da resposta"
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         next:
           type: string
-          format: uri
-          maxLength: 2000
-          description: URI da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
+          format: url
+          maxLength: 4048
+          description: URL da próxima página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
         last:
           type: string
-          format: uri
-          maxLength: 2000
-          description: URI da última página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
+          format: url
+          maxLength: 4048
+          description: URL da última página dessa lista de resultados. Restrição - Obrigatório quando não for a última página da resposta
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
       additionalProperties: false
     LinksOperationId:
       type: object
@@ -237,11 +239,10 @@ components:
       properties:
         self:
           type: string
-          format: uri
-          maxLength: 2000
-          description: URI completo que gerou a resposta atual.
+          format: url
+          maxLength: 4048
+          description: URL completo que gerou a resposta atual.
           example: 'https://api.banco.com.br/open-banking/api/v1/resource'
-          pattern: '^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&\/\/=]*)$'
       additionalProperties: false
     OpenDataMetaOperationId:
       type: object
@@ -847,6 +848,20 @@ components:
           maxLength: 20
           format: date-time
           example: '2021-05-21T08:30:00Z'
+    X-V:
+      type: string
+      pattern: '^\d+\.\d+\.\d+$'
+      example: 1.0.0
+      description: "Cabeçalho que indica a versão implementada da API pela instituição financeira. Deve ser preenchido de forma completa, por exemplo: x-v : 1.0.2"
+    XFapiInteractionId:
+      description: 'Um UUID [RFC4122](RFC 4122: A Universally Unique IDentifier (UUID) URN Namespace ) usado como um ID de correlação entre request e response. Campo de geração e envio obrigatório pela receptora (client) e o seu valor deve ser “espelhado” pela transmissora (server) no cabeçalho de resposta. Caso não seja recebido ou se for recebido um valor inválido, a transmissora deve gerar um x-fapi-interaction-id e retorná-lo na resposta com o HTTP Status Code 400. A receptora deve acatar o valor recebido da transmissora.'
+      type: string
+      required: true
+      format: uuid
+      pattern: '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$'
+      minLength: 1
+      maxLength: 36
+      example: "d78fc4e5-37ca-4da3-adf2-9b082bf92280"  
   parameters:
     OperationId:
       name: operationId
@@ -955,18 +970,36 @@ components:
   responses:
     OKResponseProductList:
       description: Dados de operações de câmbio da instituição obtidos com sucesso.
+      headers:
+        x-v:
+          $ref: '#/components/headers/X-V'
+        x-fapi-interaction-id:
+          schema:
+            $ref: '#/components/schemas/XFapiInteractionId'  
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/OKResponseProductList'
     OKResponseOperationDetails:
       description: Dados de operações de câmbio da instituição obtidos com sucesso.
+      headers:
+        x-v:
+          $ref: '#/components/headers/X-V'
+        x-fapi-interaction-id:
+          schema:
+            $ref: '#/components/schemas/XFapiInteractionId'  
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/OKResponseOperationDetails'
     OKResponseEvents:
       description: Dados de operações de câmbio da instituição obtidos com sucesso.
+      headers:
+        x-v:
+          $ref: '#/components/headers/X-V'
+        x-fapi-interaction-id:
+          schema:
+            $ref: '#/components/schemas/XFapiInteractionId'  
       content:
         application/json:
           schema:
