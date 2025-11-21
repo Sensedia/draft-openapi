@@ -89,4 +89,7 @@ Preencher o campo com a data dummy: 0001-01-01, apenas para os casos nos quais a
 - Todas as transações devem ser refletidas de forma idêntica aos canais digitais, e, caso não estejam nos canais, devem ser apresentadas conforme a previsão de cobrança da casa.
 ";Texto;;Obrigatório;^(\d{4})-(1[0-2]|0?[1-9])$;;1;1;"";Não permitido;string;2021-05;
 /data/payeeMCC;payeeMCC;"O MCC ou o código da categoria do estabelecimento comercial. Os MCCs são agrupados segundo suas similaridades. O MCC é usado para classificar o negócio pelo tipo fornecido de bens ou serviços. Os MCCs são atribuídos por tipo de comerciante (por exemplo, um para hotéis, um para lojas de materiais de escritório, etc.) ou por nome de comerciante (por exemplo, 3000 para a United Airlines).
-";Número;2147483647;Opcional;;;0;1;"";Não permitido;number;5137;
+
+[Restrição] Informação de envio obrigatório quando o valor do campo transactionType for igual a PAGAMENTO.
+";Número;2147483647;Condicional;;;0;1;" Informação de envio obrigatório quando o valor do campo transactionType for igual a PAGAMENTO.
+";Não permitido;number;5137;
